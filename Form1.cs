@@ -70,14 +70,12 @@ namespace TP1_PlataformaDesarrollo
             {
                 InicioUserLogueado = new Form5();
                 InicioUserLogueado.MdiParent = this;
-                InicioUserLogueado.opcionElegidaMenuAdministrador += opcionElegidaMenuAdministrador;
+                //InicioUserLogueado.opcionElegidaMenuAdministrador += opcionElegidaMenuAdministrador;
                 InicioUserLogueado.Show();
             }
             else
             {
-                menuUsuario = new Form7();
-                menuUsuario.MdiParent = this;
-                menuUsuario.Show();
+
             }
 
         }
