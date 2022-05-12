@@ -48,9 +48,9 @@ namespace TP1_PlataformaDesarrollo
                 {
                     campos = cadena.Split(separador);
 
-                    if (Int32.Parse(campos[0].Trim()).Equals(DNI))
+                    if (Int32.Parse(campos[4].Trim()).Equals(DNI))
                     {
-                        if (campos[4].Trim().Equals(password))
+                        if (campos[3].Trim().Equals(password))
                         {
                             codRetorno = 1; // encontro a usuario
                             encontrado = true;
