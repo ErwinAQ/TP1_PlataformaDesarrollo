@@ -47,7 +47,6 @@ namespace TP1_PlataformaDesarrollo
                 while (cadena != null && encontrado == false) // si se termina la cadena o si ecuentro el dato magico
                 {
                     campos = cadena.Split(separador);
-
                     if (Int32.Parse(campos[4].Trim()).Equals(DNI))
                     {
                         if (campos[3].Trim().Equals(password))
