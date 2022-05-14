@@ -27,9 +27,8 @@ namespace TP1_PlataformaDesarrollo
         public bool Bloqueado { get; set; }
 
         public Usuario() { }
-        public Usuario(int id, string nombre, string apellido, string mail, string pass, int dni)
+        public Usuario(string nombre, string apellido, string mail, string pass, int dni)
         {
-            Id = id;
             Nombre = nombre;
             Apellido = apellido;
             Email = mail;

@@ -27,6 +27,7 @@ namespace TP1_PlataformaDesarrollo
         {
             InitializeComponent();
             initializeForm2();
+            Console.Out.WriteLine("Cantidad de usuarios: " + this.redSocial.usuarios.Count);
         }
         private void initializeForm2()
         {
@@ -98,7 +99,7 @@ namespace TP1_PlataformaDesarrollo
 
         private bool registroClickeado(string Nombre, string Apellido, string Mail, string Password, int DNI)
         {
-            Usuario Aux = new Usuario(0, Nombre, Apellido, Mail, Password, DNI);
+            Usuario Aux = new Usuario(Nombre, Apellido, Mail, Password, DNI);
 
             bool result = redSocial.AgregarUsuario(Aux);
 
