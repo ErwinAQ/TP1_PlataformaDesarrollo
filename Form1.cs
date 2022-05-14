@@ -73,23 +73,28 @@ namespace TP1_PlataformaDesarrollo
                 //InicioUserLogueado.opcionElegidaMenuAdministrador += opcionElegidaMenuAdministrador;
                 InicioUserLogueado.Show();
             }
-            else
-            {
-
-            }
-
         }
 
         private bool ingresarClickeado(int DNI, string password)
         {
-            int logueado = redSocial.IniciarSesion(DNI, password);
-            if (logueado != -1)
+            int loginResult = redSocial.IniciarSesion(DNI, password);
+            if (loginResult != -1)
             {
-                loggedInUserId = logueado;
+                // buscar en la lista de usuarios el usuario con el DNI que nos devuelve
+                // la función
+                loggedInUserId = loginResult;
+                Console.Out.WriteLine("loginResult: " + loginResult);
+                Console.Out.WriteLine("user: " + this.redSocial.usuarios[0].Nombre);
                 return true;
             }
             return false;
         }
+
+        /*
+        //-  la función IniciarSesión nos devuelve el id del usuario encontrado
+        //-  en la clase Red Social buscamos en toda la lista de usuarios el usuario que tenga el id
+        //   que nos devolvió la función IniciarSesion
+         */
 
         private bool registroClickeado(string Nombre, string Apellido, string Mail, string Password, int DNI)
         {

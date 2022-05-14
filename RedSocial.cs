@@ -12,12 +12,14 @@ namespace TP1_PlataformaDesarrollo
         public List<Usuario> usuarios { get; set; }
 
         private int IdUsuarios;
+        public Usuario logedUser;
 
         public RedSocial()
         {
             usuarios = new List<Usuario>();
+            //  llenar lista de usuarios
+            // initializeListUsers()
             IdUsuarios = 0;
-
         }
 
         public bool AgregarUsuario(Usuario usuario)
@@ -39,6 +41,11 @@ namespace TP1_PlataformaDesarrollo
             String[] campos = new string[4];
             int codRetorno = -1;
 
+            /*
+             -1 -> usuario no encontrado
+            DNI (int) -> id usuario encontrado
+             */
+
             char[] separador = { ';' };
             try
             {
@@ -51,7 +58,7 @@ namespace TP1_PlataformaDesarrollo
                     {
                         if (campos[3].Trim().Equals(password))
                         {
-                            codRetorno = 1; // encontro a usuario
+                            codRetorno = Int32.Parse(campos[4]); // encontro a usuario
                             encontrado = true;
                         }
                     }
@@ -69,6 +76,12 @@ namespace TP1_PlataformaDesarrollo
 
             return codRetorno;
         }
+
+       /* public Usuario getUserByDNI(int dni)
+        {
+            int indexUser = this.usuarios.
+            return;
+        }*/
 
         public bool IdUsuarioLogueado(int _codigoRetorno)
         {
