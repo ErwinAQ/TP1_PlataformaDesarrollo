@@ -56,13 +56,13 @@ namespace TP1_PlataformaDesarrollo
             bool encontrado = false;
             String[] campos = new string[4];
             int codRetorno = -1;
+            char[] separador = { ';' };
 
             /*
              -1 -> usuario no encontrado
             DNI (int) -> id usuario encontrado
              */
 
-            char[] separador = { ';' };
             try
             {
                 lectura = File.OpenText("C:/Users/" + Environment.UserName + "/AppData/Local/RedSocial/RedSocial/usuarios.txt");
@@ -101,7 +101,7 @@ namespace TP1_PlataformaDesarrollo
 
         public bool IdUsuarioLogueado(int _codigoRetorno)
         {
-            if (_codigoRetorno == 1) { return true; }
+            if (_codigoRetorno != 1) { return true; }
             else { return false; }
         }
     }
