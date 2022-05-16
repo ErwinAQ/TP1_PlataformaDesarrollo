@@ -104,5 +104,77 @@ namespace TP1_PlataformaDesarrollo
             if (_codigoRetorno != 1) { return true; }
             else { return false; }
         }
+
+        public void EliminarUsuario()
+        {
+            //Eliminar el usuario de la lista de amigos
+        }
+        public void CerrarSesion()
+        {
+           //Cerrar la sesion actual.
+        }
+        public void QuitarAmigo(in Usuario ExAmigo)
+        {
+            //Quita el usuario UsuarioActual de la lista de amigos de
+            //ExAmigo y a la vez quita ExAmigo de la lista de amigos del usuario UsuarioActual.
+        }
+        public void Postear(in Post post, in Tag tag)
+        {
+            /*Agrega el Post p a la lista de posts, agrega el post a la lista del
+            usuario UsuarioActual. Revisa los tags, si no están en la lista de tags los agrega, luego para cada
+            tag agrega el post p a su lista de posts y agrega los tags en t a la lista de tags del post p.*/
+        }
+        public void ModificarPost(in Post post)
+        {
+            //Idem modificar usuario pero con datos de post.
+        }
+        public void EliminarPost(in Post post)
+        {
+            //Elimina comentarios y reacciones asociadas a p, luego elimina el post.
+        }
+        public void Comentar(in Post post, in Comentario comentario)
+        {
+            //Alta de comentario c del UsuarioActual en el post p.
+        }
+        public void ModificarComentario(in Comentario comentario)
+        {
+            //Idem modificar usuario pero con datos de comentario.
+        }
+        public void QuitarComentario(in Post post, in Comentario comentario)
+        {
+            //Elimina el comentario c en el post p.
+        }
+        public void Reaccionar(in Post post, in Reaccion reaccion)
+        {
+            //Alta de reacción r del UsuarioActual en el post p.
+        }
+        public void ModificarReaccion(in Reaccion reaccion)
+        {
+            //Idem modificar usuario pero con datos de reacción.
+        }
+        public void QuitarReaccion(in Post post, in Reaccion reaccion)
+        {
+            //Elimina la reacción r del post p.
+        }
+        public void MostrarDatos()
+        {
+            //Muestra los datos del usuario UsuarioActual. Devuelve un usuario.
+        }
+        public void MostrarPost()
+        {
+            //Muestra los posts del usuario UsuarioActual. Devuelve una lista de posts.
+        }
+        public void MostrarPostAmigos()
+        {
+            //Muestra los posts de los amigos del usuario UsuarioActual. Devuelve
+            //una lista de posts.
+        }
+        public void BuscarPost(in string Contenido, in DateTime FechaDesde, in DateTime FechaHasta, in Tag tags)
+        {
+            /*El
+            usuario puede buscar posts por contenido, fecha (desde/hasta) o por los tags. El sistema revisa
+            cada uno de estos inputs, si es nulo lo saltea. El filtrado se realiza sobre la lista completa de
+            posts. Devuelve una lista de posts (filtrada).*/
+        }
     }
 }
