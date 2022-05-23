@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using 
 
 namespace TP1_PlataformaDesarrollo
 {
     public class Reaccion
     {
-        public int Id { get; set; }
+
+    public Reaccion() { }
+
+    public int Id { get; set; }
 
         public enum Tipo
         {
@@ -21,8 +25,11 @@ namespace TP1_PlataformaDesarrollo
             Me_Enoja = 7,
         }
 
-        public Usuario Usuario { get; set; }
+    public Usuario Usuario { get; set; }
 
-        public Post Post { get; set; }
+    public Post Post { get; set; }
+
     }
+
+
 }

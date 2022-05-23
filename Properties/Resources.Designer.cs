@@ -67,5 +67,14 @@ namespace TP1_PlataformaDesarrollo.Properties
                 resourceCulture = value;
             }
         }
+
+        internal static string ConnectionStr
+        {
+            get
+            {
+                return ResourceManager.GetString("ConnectionStr", resourceCulture);
+            }
+        }
+
     }
 }

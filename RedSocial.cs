@@ -11,9 +11,13 @@ namespace TP1_PlataformaDesarrollo
     {
         public List<Usuario> usuarios { get; set; }
         public Usuario logedUser;
+        private string connectionString;
 
         public RedSocial()
         {
+
+            this.connectionString = Properties.Resources.ConnectionStr;
+
             usuarios = new List<Usuario>();
             //  llenar lista de usuarios
             this.initializeUserList();
