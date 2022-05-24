@@ -13,63 +13,52 @@ namespace TP1_PlataformaDesarrollo
 {
     public partial class Form4 : Form
     {
-        public delegate bool registroClick(string Nombre, string Apellido, string Mail, string Password, int DNI);
-        public registroClick registroClickeado;
 
         public delegate void initializeForm();
         public initializeForm volverAtras;
 
+        private RedSocial usuarios;
+
         public Form4()
         {
             InitializeComponent();
+            usuarios = new RedSocial();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
             string Nombre = textBox1.Text;
             string Apellido = textBox2.Text;
-            string Mail = textBox3.Text;
-            string Contraseña = textBox4.Text;
-            int DNI;
-            int.TryParse(textBox5.Text, out DNI);
+            string Dni = textBox3.Text;
+            string Email = textBox4.Text;
+            string Password = textBox5.Text;
+            Boolean EsADM = false;
+            int IntentosFallidos = 0;
+            Boolean Bloqueado = false;
 
-            if (DNI == 0)
+            if (usuarios.agregarUsuario(Nombre, Apellido, Dni, Email, Password, EsADM, IntentosFallidos, Bloqueado))
             {
-                MessageBox.Show("El DNI debe ser un número");
-            }
-            else if (Mail == "")
-            {
-                MessageBox.Show("El mail no puede estar vacio");
-            }
-            else if (Contraseña.Length < 3 || Contraseña.Length > 12)
-            {
-                MessageBox.Show("La contraseña debe tener entre 3 y 12 caracteres");
-            }
-            else if (Nombre == "")
-            {
-                MessageBox.Show("El nombre no puede estar vacio");
-            }
-            else if (Apellido == "")
-            {
-                MessageBox.Show("El apellido no puede estar vacio");
+                MessageBox.Show("El registro fue exitoso");
+                this.Close();
+                this.volverAtras();
             }
             else
-            {
-                if (this.registroClickeado(Nombre, Apellido, Mail, Contraseña, DNI))
-                {
-                    MessageBox.Show("El registro fue exitoso");
-                    this.Close();
-                    this.volverAtras();
-                }
-
-            }
+            
+                MessageBox.Show("No se pudo agregar el usuario");
+                this.volverAtras();
+            
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
             this.volverAtras();
+        }
+
+        private void Form4_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

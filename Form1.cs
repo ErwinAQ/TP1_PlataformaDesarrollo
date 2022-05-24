@@ -21,13 +21,11 @@ namespace TP1_PlataformaDesarrollo
 
         //Variables auxiliares
         RedSocial redSocial = new RedSocial();
-        string carpetaElegida = "C:/Users/" + Environment.UserName + "/AppData/Local/RedSocial";
-        int loggedInUserId;
+        
         public Form1()
         {
             InitializeComponent();
             initializeForm2();
-            Console.Out.WriteLine("Cantidad de usuarios: " + this.redSocial.usuarios.Count);
         }
         private void initializeForm2()
         {
@@ -45,7 +43,7 @@ namespace TP1_PlataformaDesarrollo
                 case 1:
                     menuLogin = new Form3();
                     menuLogin.MdiParent = this;
-                    menuLogin.IniciarSesion += ingresarClickeado;
+                    /*menuLogin.IniciarSesion += ingresarClickeado;*/
                     menuLogin.logInicio += logHandler;
                     menuLogin.volverAtras += initializeForm2;
                     menuLogin.Show();
@@ -55,7 +53,7 @@ namespace TP1_PlataformaDesarrollo
                 case 2:
                     menuRegistro = new Form4();
                     menuRegistro.MdiParent = this;
-                    menuRegistro.registroClickeado += registroClickeado;
+                    /*menuRegistro.registroClickeado += registroClickeado;*/
                     menuRegistro.volverAtras += initializeForm2;
                     menuRegistro.Show();
                     break;
@@ -67,16 +65,16 @@ namespace TP1_PlataformaDesarrollo
 
             MessageBox.Show("Bienvenido al red social ");
 
-            if (redSocial.IdUsuarioLogueado(this.loggedInUserId))
+            /*if (redSocial.IdUsuarioLogueado(this.loggedInUserId))
             {
                 InicioUserLogueado = new Form5();
                 InicioUserLogueado.MdiParent = this;
                 //InicioUserLogueado.opcionElegidaMenuAdministrador += opcionElegidaMenuAdministrador;
                 InicioUserLogueado.Show();
-            }
+            }*/
         }
 
-        private bool ingresarClickeado(int DNI, string password)
+        /*private bool ingresarClickeado(int DNI, string password)
         {
             int loginResult = redSocial.IniciarSesion(DNI, password);
             if (loginResult != -1)
@@ -89,44 +87,12 @@ namespace TP1_PlataformaDesarrollo
                 return true;
             }
             return false;
-        }
+        }*/
 
         /*
         //-  la función IniciarSesión nos devuelve el id del usuario encontrado
         //-  en la clase Red Social buscamos en toda la lista de usuarios el usuario que tenga el id
         //   que nos devolvió la función IniciarSesion
          */
-
-        private bool registroClickeado(string Nombre, string Apellido, string Mail, string Password, int DNI)
-        {
-            Usuario Aux = new Usuario(Nombre, Apellido, Mail, Password, DNI);
-
-            bool result = redSocial.AgregarUsuario(Aux);
-
-            //bool result = redSocial.AgregarUsuario(Nombre, Apellido, Mail, Password, DNI);
-
-            if (result)
-            {
-
-                checkIfRedSocialExists();
-
-                //Me guarda los datos del usuario creado en la ruta indicada
-                StreamWriter file = new StreamWriter(carpetaElegida + "/RedSocial/usuarios.txt", true);
-
-                file.WriteLine(Nombre + ";" + Apellido + ";" + Mail + ";" + Password + ";" + DNI);
-                file.Close();
-            }
-
-            return result;
-        }
-
-        private void checkIfRedSocialExists()
-        {
-            //Chequea si existe la carpeta, si no, la crea
-            if (!Directory.Exists(carpetaElegida + "/RedSocial"))
-            {
-                System.IO.Directory.CreateDirectory(carpetaElegida + "/RedSocial");
-            }
-        }
     }
 }

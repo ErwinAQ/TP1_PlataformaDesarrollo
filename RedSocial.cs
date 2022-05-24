@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace TP1_PlataformaDesarrollo
 {
@@ -11,39 +13,48 @@ namespace TP1_PlataformaDesarrollo
     {
         public List<Usuario> usuarios { get; set; }
         public Usuario logedUser;
-        private string connectionString;
+        private DAL DB;
 
         public RedSocial()
         {
-
-            this.connectionString = Properties.Resources.ConnectionStr;
-
             usuarios = new List<Usuario>();
-            //  llenar lista de usuarios
-            this.initializeUserList();
+            DB = new DAL();
+            inicializarAtributos();
         }
 
-        private void initializeUserList()
+        private void inicializarAtributos()
         {
-            StreamReader lectura;
-            String cadena;
-            String[] campos = new string[4];
-            char[] separador = { ';' };
-            try
-            {
-                lectura = File.OpenText("C:/Users/" + Environment.UserName + "/AppData/Local/RedSocial/RedSocial/usuarios.txt");
-                cadena = lectura.ReadLine(); // para que lea la linea (primer linea)
-                while (cadena != null) // si se termina la cadena o si ecuentro el dato magico
-                {
-                    campos = cadena.Split(separador);
-                    Usuario tmpUser = new Usuario(campos[0], campos[1], campos[2], campos[3], Int32.Parse(campos[4]));
-                    this.AgregarUsuario(tmpUser);
-                    cadena = lectura.ReadLine();
-                }
-                lectura.Close();
-            }
-            catch (FileNotFoundException) { Console.WriteLine("Error"); }
+            usuarios = DB.inicializarUsuarios();
+        }
 
+        public bool agregarUsuario(string Nombre, string Apellido, string Dni, string Email, string Password, bool EsADM, int IntentosFallidos, bool Bloqueado)
+        {
+            //comprobación para que no me agreguen usuarios con DNI duplicado
+            bool esValido = true;
+            foreach (Usuario u in usuarios)
+            {
+                if (u.Dni == Dni)
+                    esValido = false;
+            }
+            if (esValido)
+            {
+                int idNuevoUsuario;
+                idNuevoUsuario = DB.agregarUsuario(Nombre, Apellido, Dni, Email, Password, EsADM, IntentosFallidos, Bloqueado);
+                if (idNuevoUsuario != -1)
+                {
+                    //Ahora sí lo agrego en la lista
+                    Usuario nuevo = new Usuario(idNuevoUsuario, Nombre, Apellido, Dni, Email, Password, EsADM, IntentosFallidos, Bloqueado);
+                    usuarios.Add(nuevo);
+                    return true;
+                }
+                else
+                {
+                    //algo salió mal con la query porque no generó un id válido
+                    return false;
+                }
+            }
+            else
+                return false;
         }
 
         public bool AgregarUsuario(Usuario usuario)
