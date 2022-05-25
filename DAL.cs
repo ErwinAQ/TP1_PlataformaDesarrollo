@@ -92,16 +92,16 @@ namespace TP1_PlataformaDesarrollo
 
                     //*******************************************
                     //Ahora hago esta query para obtener el ID
-                    string ConsultaID = "SELECT MAX([ID]) FROM [dbo].[Usuarios]";
+                    string ConsultaID = "SELECT MAX([id]) FROM [dbo].[usuarios]";
                     command = new SqlCommand(ConsultaID, connection);
                     SqlDataReader reader = command.ExecuteReader();
                     reader.Read();
-                    idNuevoUsuario = reader.GetInt32(0);
+                    idNuevoUsuario = Convert.ToInt32(reader[0]);
                     reader.Close();
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Error al insertar: " + ex.Message);
                     return -1;
                 }
                 return idNuevoUsuario;
