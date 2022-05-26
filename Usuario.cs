@@ -20,7 +20,7 @@ namespace TP1_PlataformaDesarrollo
 
         public string Password { get; set; }
 
-        public String Dni { get; set; }
+        public string Dni { get; set; }
 
         public int IntentosFallidos { get; set; }
 

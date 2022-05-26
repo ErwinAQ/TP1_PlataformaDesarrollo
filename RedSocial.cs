@@ -11,27 +11,27 @@ namespace TP1_PlataformaDesarrollo
 {
     public class RedSocial
     {
-        public List<Usuario> usuarios { get; set; }
+        public List<Usuario> Usuarios { get; set; }
         public Usuario logedUser;
         private DAL DB;
 
         public RedSocial()
         {
-            usuarios = new List<Usuario>();
+            Usuarios = new List<Usuario>();
             DB = new DAL();
             inicializarAtributos();
         }
 
         private void inicializarAtributos()
         {
-            usuarios = DB.inicializarUsuarios();
+            Usuarios = DB.inicializarUsuarios();
         }
 
         public bool agregarUsuario(string Nombre, string Apellido, string Dni, string Email, string Password, bool EsADM, int IntentosFallidos, bool Bloqueado)
         {
             //comprobación para que no me agreguen usuarios con DNI duplicado
             bool esValido = true;
-            foreach (Usuario u in usuarios)
+            foreach (Usuario u in Usuarios)
             {
                 if (u.Dni == Dni)
                     esValido = false;
@@ -44,7 +44,7 @@ namespace TP1_PlataformaDesarrollo
                 {
                     //Ahora sí lo agrego en la lista
                     Usuario nuevo = new Usuario(idNuevoUsuario, Nombre, Apellido, Dni, Email, Password, EsADM, IntentosFallidos, Bloqueado);
-                    usuarios.Add(nuevo);
+                    Usuarios.Add(nuevo);
                     return true;
                 }
                 else
@@ -72,25 +72,54 @@ namespace TP1_PlataformaDesarrollo
 
         public void EliminarUsuario()
         {
-            //Eliminar el usuario de la lista de amigos
+            //Elimina los comentarios, reacciones y posts del usuario. Luego elimina el
+            //usuario UsuarioActual(ver en método debajo).
+            logedUser.MisComentarios.Remove;
+            logedUser.MisPost.Remove;
+            logedUser.MisReacciones.Remove;
+            
+            
         }
         public void CerrarSesion()
         {
             //Cerrar la sesion actual.
+            logedUser = null;
         }
         public void QuitarAmigo(in Usuario ExAmigo)
         {
+            var variable = ExAmigo.Id;
             //Quita el usuario UsuarioActual de la lista de amigos de
             //ExAmigo y a la vez quita ExAmigo de la lista de amigos del usuario UsuarioActual.
+            //ExAmigo.loguedUser.remove;
+            if(ExAmigo != null) {
+
+                var resultado = Usuarios.Find(Param => Param.Id == variable);
+
+                if (resultado != null)
+                {
+                    logedUser.Amigos.Remove(ExAmigo);
+                    this.Usuarios.Remove(ExAmigo);
+                    //return arrayNumeros.some(elemento => elemento < 0)
+                }
+
+            }
+            
+            
         }
-        public void Postear(in Post post, in Tag tag)
+        public void Postear(in Post Postt, in List<Tag>Tags)
         {
             /*Agrega el Post p a la lista de posts, agrega el post a la lista del
             usuario UsuarioActual. Revisa los tags, si no están en la lista de tags los agrega, luego para cada
             tag agrega el post p a su lista de posts y agrega los tags en t a la lista de tags del post p.*/
+            
+            logedUser.MisPost.Add(Postt);
         }
-        public void ModificarPost(in Post post)
+        public void ModificarPost(in Post Post)
         {
+            if (Post is null)
+            {
+                throw new ArgumentNullException(nameof(Post));
+            }
             //Idem modificar usuario pero con datos de post.
         }
         public void EliminarPost(in Post post)
