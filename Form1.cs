@@ -21,7 +21,7 @@ namespace TP1_PlataformaDesarrollo
 
         //Variables auxiliares
         RedSocial redSocial = new RedSocial();
-        
+
         public Form1()
         {
             InitializeComponent();
@@ -43,7 +43,7 @@ namespace TP1_PlataformaDesarrollo
                 case 1:
                     menuLogin = new Form3();
                     menuLogin.MdiParent = this;
-                    /*menuLogin.IniciarSesion += ingresarClickeado;*/
+                    menuLogin.IniciarSesion += ingresarClickeado;
                     menuLogin.logInicio += logHandler;
                     menuLogin.volverAtras += initializeForm2;
                     menuLogin.Show();
@@ -53,7 +53,6 @@ namespace TP1_PlataformaDesarrollo
                 case 2:
                     menuRegistro = new Form4();
                     menuRegistro.MdiParent = this;
-                    /*menuRegistro.registroClickeado += registroClickeado;*/
                     menuRegistro.volverAtras += initializeForm2;
                     menuRegistro.Show();
                     break;
@@ -65,29 +64,20 @@ namespace TP1_PlataformaDesarrollo
 
             MessageBox.Show("Bienvenido al red social ");
 
-            /*if (redSocial.IdUsuarioLogueado(this.loggedInUserId))
-            {
-                InicioUserLogueado = new Form5();
-                InicioUserLogueado.MdiParent = this;
-                //InicioUserLogueado.opcionElegidaMenuAdministrador += opcionElegidaMenuAdministrador;
-                InicioUserLogueado.Show();
-            }*/
+
+            InicioUserLogueado = new Form5();
+            InicioUserLogueado.MdiParent = this;
+            InicioUserLogueado.Show();
         }
 
-        /*private bool ingresarClickeado(int DNI, string password)
+        private bool ingresarClickeado(string DNI, string Password)
         {
-            int loginResult = redSocial.IniciarSesion(DNI, password);
-            if (loginResult != -1)
+            if (redSocial.IniciarSesion(DNI, Password))
             {
-                // buscar en la lista de usuarios el usuario con el DNI que nos devuelve
-                // la función
-                loggedInUserId = loginResult;
-                Console.Out.WriteLine("loginResult: " + loginResult);
-                Console.Out.WriteLine("user: " + this.redSocial.usuarios[0].Nombre);
                 return true;
             }
             return false;
-        }*/
+        }
 
         /*
         //-  la función IniciarSesión nos devuelve el id del usuario encontrado

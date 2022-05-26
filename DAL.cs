@@ -56,6 +56,36 @@ namespace TP1_PlataformaDesarrollo
             return misUsuarios;
         }
 
+        public int iniciarSesion(string dni, string password)
+        {
+            int idUser = -1;
+            string connectionString = Properties.Resources.ConnectionStr;
+            string queryString = "SELECT * FROM [dbo].[usuarios] WHERE [dni]=@dni AND [password]=@password;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@dni", SqlDbType.NVarChar));
+                command.Parameters.Add(new SqlParameter("@password", SqlDbType.NVarChar));
+                command.Parameters["@dni"].Value = dni;
+                command.Parameters["@password"].Value = password;
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    idUser = Convert.ToInt32(reader[0]);
+                    reader.Close();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return idUser;
+                }
+                return idUser;
+            }
+        }
+
         //devuelve el ID del usuario agregado a la base, si algo falla devuelve -1
         public int agregarUsuario(string Nombre, string Apellido, string Dni, string Email, string Password, bool EsADM, int IntentosFallidos, bool Bloqueado)
         {
@@ -63,7 +93,7 @@ namespace TP1_PlataformaDesarrollo
             int resultadoQuery;
             int idNuevoUsuario = -1;
             string connectionString = Properties.Resources.ConnectionStr;
-            string queryString = "INSERT INTO [dbo].[Usuarios] ([nombre],[apellido],[dni],[email],[password],[es_admin],[intentos_fallidos],[bloqueado]) VALUES (@nombre,@apellido,@dni,@email,@password,@esadm,@intentosFallidos,@bloqueado);";
+            string queryString = "INSERT INTO [dbo].[usuarios] ([nombre],[apellido],[dni],[email],[password],[es_admin],[intentos_fallidos],[bloqueado]) VALUES (@nombre,@apellido,@dni,@email,@password,@esadm,@intentosFallidos,@bloqueado);";
             using (SqlConnection connection =
                 new SqlConnection(connectionString))
             {

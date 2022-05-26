@@ -13,7 +13,7 @@ namespace TP1_PlataformaDesarrollo
 {
     public partial class Form3 : Form
     {
-        public delegate bool ingresarClickeado(int DNI, string Password);
+        public delegate bool ingresarClickeado(string DNI, string Password);
         public ingresarClickeado IniciarSesion;
 
         public delegate void logueadoI();
@@ -35,23 +35,20 @@ namespace TP1_PlataformaDesarrollo
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int DNI;
-            int.TryParse(textBox1.Text, out DNI);
-            string Contraseña = textBox2.Text;
+            string DNI = textBox1.Text;
+            string Password = textBox2.Text;
 
-            if (DNI == 0)
+            if (DNI == " ")
             {
-                MessageBox.Show("El DNI debe ser un número");
+                MessageBox.Show("Se debe ingresar el DNI");
             }
-            else if (Contraseña.Length < 3 || Contraseña.Length > 12)
+            else if (Password.Length < 3 || Password.Length > 12)
             {
                 MessageBox.Show("La contraseña debe tener entre 3 y 12 caracteres");
             }
             else
             {
-                bool logueado = this.IniciarSesion(DNI, Contraseña);
-
-                if (logueado)
+                if (this.IniciarSesion(DNI, Password))
                 {
                     this.Close();
                     this.logInicio();

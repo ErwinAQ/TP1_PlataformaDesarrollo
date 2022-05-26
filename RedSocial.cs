@@ -57,63 +57,13 @@ namespace TP1_PlataformaDesarrollo
                 return false;
         }
 
-        public bool AgregarUsuario(Usuario usuario)
+        public bool IniciarSesion(string Dni, string Password)
         {
-            this.usuarios.Add(usuario);
-            return true;
+            int userId;
+            userId = DB.iniciarSesion(Dni, Password); 
+            bool idUsuario = userId != 0;
+            return idUsuario;
         }
-
-        public int IniciarSesion(int DNI, string password)
-        {
-
-            StreamReader lectura;
-            String cadena;
-            bool encontrado = false;
-            String[] campos = new string[4];
-            int codRetorno = -1;
-            char[] separador = { ';' };
-
-            /*
-             -1 -> usuario no encontrado
-            DNI (int) -> id usuario encontrado
-             */
-
-            try
-            {
-                lectura = File.OpenText("C:/Users/" + Environment.UserName + "/AppData/Local/RedSocial/RedSocial/usuarios.txt");
-                cadena = lectura.ReadLine(); // para que lea la linea (primer linea)
-                while (cadena != null && encontrado == false) // si se termina la cadena o si ecuentro el dato magico
-                {
-                    campos = cadena.Split(separador);
-                    if (Int32.Parse(campos[4].Trim()).Equals(DNI))
-                    {
-                        if (campos[3].Trim().Equals(password))
-                        {
-                            codRetorno = Int32.Parse(campos[4]); // encontro a usuario
-                            encontrado = true;
-                        }
-                    }
-                    else
-                    {
-                        cadena = lectura.ReadLine(); // para que lea la proxima linea
-                    }
-
-                }
-                lectura.Close();
-            }
-            catch (FileNotFoundException) { Console.WriteLine("Error"); }
-            catch (Exception eex) { Console.WriteLine("Error" + eex.Message); }
-
-
-            return codRetorno;
-        }
-
-       /* public Usuario getUserByDNI(int dni)
-        {
-            int indexUser = this.usuarios.
-            return;
-        }*/
-
         public bool IdUsuarioLogueado(int _codigoRetorno)
         {
             if (_codigoRetorno != 1) { return true; }
@@ -126,7 +76,7 @@ namespace TP1_PlataformaDesarrollo
         }
         public void CerrarSesion()
         {
-           //Cerrar la sesion actual.
+            //Cerrar la sesion actual.
         }
         public void QuitarAmigo(in Usuario ExAmigo)
         {
