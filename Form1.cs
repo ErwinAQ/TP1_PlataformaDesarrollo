@@ -61,13 +61,17 @@ namespace TP1_PlataformaDesarrollo
 
         private void logHandler()
         {
-
-            MessageBox.Show("Bienvenido al red social ");
-
-
-            InicioUserLogueado = new Form5();
-            InicioUserLogueado.MdiParent = this;
-            InicioUserLogueado.Show();
+            if (this.redSocial.logedUser.EsADM)
+            {
+                Console.Out.WriteLine("Crear form para admin");
+            }
+            else
+            {
+                MessageBox.Show("Bienvenido al red social ");
+                InicioUserLogueado = new Form5();
+                InicioUserLogueado.MdiParent = this;
+                InicioUserLogueado.Show();
+            }
         }
 
         private bool ingresarClickeado(string DNI, string Password)

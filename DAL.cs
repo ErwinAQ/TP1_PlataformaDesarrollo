@@ -106,9 +106,10 @@ namespace TP1_PlataformaDesarrollo
                     user.Apellido = Convert.ToString(reader[2]);
                     user.Dni = Convert.ToString(reader[3]);
                     user.Email = Convert.ToString(reader[4]);
-                    user.EsADM = Convert.ToBoolean(reader[5]);
-                    user.IntentosFallidos = Convert.ToInt32(reader[6]);
-                    user.Bloqueado = Convert.ToBoolean(reader[7]);
+                    user.Password = Convert.ToString(reader[5]);
+                    user.EsADM = Convert.ToBoolean(reader[6]);
+                    user.IntentosFallidos = Convert.ToInt32(reader[7]);
+                    user.Bloqueado = Convert.ToBoolean(reader[8]);
                     reader.Close();
                     connection.Close();
                 }
