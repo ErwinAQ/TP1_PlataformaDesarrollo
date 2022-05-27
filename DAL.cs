@@ -22,7 +22,7 @@ namespace TP1_PlataformaDesarrollo
             List<Usuario> misUsuarios = new List<Usuario>();
 
             //Defino el string con la consulta que quiero realizar
-            string queryString = "SELECT * from dbo.Usuarios";
+            string queryString = "SELECT * from dbo.Usuarios where es_admin != 0";
 
             // Creo una conexión SQL con un Using, de modo que al finalizar, la conexión se cierra y se liberan recursos
             using (SqlConnection connection =
@@ -30,7 +30,6 @@ namespace TP1_PlataformaDesarrollo
             {
                 // Defino el comando a enviar al motor SQL con la consulta y la conexión
                 SqlCommand command = new SqlCommand(queryString, connection);
-
                 try
                 {
                     //Abro la conexión
@@ -76,13 +75,48 @@ namespace TP1_PlataformaDesarrollo
                     idUser = Convert.ToInt32(reader[0]);
                     reader.Close();
                     connection.Close();
+                    return idUser;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     return idUser;
                 }
-                return idUser;
+            }
+        }
+
+
+        public Usuario getUserFromDatabase(int userId)
+        {
+            Usuario user = new Usuario();
+            string connectionString = Properties.Resources.ConnectionStr;
+            string queryString = "SELECT * FROM [dbo].[usuarios] WHERE [id]=@id;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@id", SqlDbType.BigInt));
+                command.Parameters["@id"].Value = userId;
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    user.Id = Convert.ToInt32(reader[0]);
+                    user.Nombre = Convert.ToString(reader[1]);
+                    user.Apellido = Convert.ToString(reader[2]);
+                    user.Dni = Convert.ToString(reader[3]);
+                    user.Email = Convert.ToString(reader[4]);
+                    user.EsADM = Convert.ToBoolean(reader[5]);
+                    user.IntentosFallidos = Convert.ToInt32(reader[6]);
+                    user.Bloqueado = Convert.ToBoolean(reader[7]);
+                    reader.Close();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                return user;
             }
         }
 

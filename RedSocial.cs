@@ -60,9 +60,14 @@ namespace TP1_PlataformaDesarrollo
         public bool IniciarSesion(string Dni, string Password)
         {
             int userId;
-            userId = DB.iniciarSesion(Dni, Password); 
-            bool idUsuario = userId != 0;
-            return idUsuario;
+            userId = DB.iniciarSesion(Dni, Password);
+            if (userId != -1)
+            {
+                this.logedUser = DB.getUserFromDatabase(userId);
+                Console.Out.WriteLine("Nombre logueado: " + this.logedUser.Nombre);
+            }
+            bool resultLogin = userId != 0;
+            return resultLogin;
         }
         public bool IdUsuarioLogueado(int _codigoRetorno)
         {
@@ -74,9 +79,9 @@ namespace TP1_PlataformaDesarrollo
         {
             //Elimina los comentarios, reacciones y posts del usuario. Luego elimina el
             //usuario UsuarioActual(ver en método debajo).
-            logedUser.MisComentarios.Remove;
-            logedUser.MisPost.Remove;
-            logedUser.MisReacciones.Remove;
+            //logedUser.MisComentarios.Remove;
+            //logedUser.MisPost.Remove;
+            //logedUser.MisReacciones.Remove;
             
             
         }
