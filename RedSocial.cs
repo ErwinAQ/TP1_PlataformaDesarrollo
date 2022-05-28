@@ -61,12 +61,13 @@ namespace TP1_PlataformaDesarrollo
         {
             int userId;
             userId = DB.iniciarSesion(Dni, Password);
+            Console.Out.WriteLine("UserId devuelto: " + userId);
             if (userId != -1)
             {
                 this.logedUser = DB.getUserFromDatabase(userId);
                 Console.Out.WriteLine("Nombre logueado: " + this.logedUser.Nombre);
             }
-            bool resultLogin = userId != 0;
+            bool resultLogin = userId != -1;
             return resultLogin;
         }
         public bool IdUsuarioLogueado(int _codigoRetorno)
