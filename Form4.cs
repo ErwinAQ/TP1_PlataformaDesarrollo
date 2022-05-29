@@ -17,12 +17,12 @@ namespace TP1_PlataformaDesarrollo
         public delegate void initializeForm();
         public initializeForm volverAtras;
 
-        private RedSocial usuarios;
+        private RedSocial redSocial;
 
-        public Form4()
+        public Form4(RedSocial redSocial)
         {
             InitializeComponent();
-            usuarios = new RedSocial();
+            this.redSocial = redSocial;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -36,7 +36,7 @@ namespace TP1_PlataformaDesarrollo
             int IntentosFallidos = 0;
             Boolean Bloqueado = false;
 
-            if (usuarios.agregarUsuario(Nombre, Apellido, Dni, Email, Password, EsADM, IntentosFallidos, Bloqueado))
+            if (this.redSocial.agregarUsuario(Nombre, Apellido, Dni, Email, Password, EsADM, IntentosFallidos, Bloqueado))
             {
                 MessageBox.Show("El registro fue exitoso");
                 this.Close();

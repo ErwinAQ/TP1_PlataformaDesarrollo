@@ -55,6 +55,103 @@ namespace TP1_PlataformaDesarrollo
             return misUsuarios;
         }
 
+        public List<Usuario> inicializarUsuariosNoAmigos(int logedUserId)
+        {
+            List<Usuario> usuariosNoAmigos = new List<Usuario>();
+
+            //Defino el string con la consulta que quiero realizar
+            string queryString = "SELECT * from [dbo].[usuarios] where (id NOT IN " +
+                "(SELECT amigo_id FROM [dbo].[usuarios_amigos] where [usuario_id] = @logedUserId))" +
+                "AND ([id] != @logedUserId) AND ([es_admin] != 1);";
+
+            // Creo una conexión SQL con un Using, de modo que al finalizar, la conexión se cierra y se liberan recursos
+            using (SqlConnection connection =
+                new SqlConnection(connectionString))
+            {
+                // Defino el comando a enviar al motor SQL con la consulta y la conexión
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@logedUserId", SqlDbType.BigInt));
+                command.Parameters["@logedUserId"].Value = logedUserId;
+                try
+                {
+                    //Abro la conexión
+                    connection.Open();
+                    //mi objecto DataReader va a obtener los resultados de la consulta, notar que a comando se le pide ExecuteReader()
+                    SqlDataReader reader = command.ExecuteReader();
+                    Usuario user = new Usuario();
+                    //mientras haya registros/filas en mi DataReader, sigo leyendo
+                    while (reader.Read())
+                    {
+                        user.Id = Convert.ToInt32(reader[0]);
+                        user.Nombre = Convert.ToString(reader[1]);
+                        user.Apellido = Convert.ToString(reader[2]);
+                        user.Dni = Convert.ToString(reader[3]);
+                        user.Email = Convert.ToString(reader[4]);
+                        user.Password = Convert.ToString(reader[5]);
+                        user.EsADM = Convert.ToBoolean(reader[6]);
+                        user.IntentosFallidos = Convert.ToInt32(reader[7]);
+                        user.Bloqueado = Convert.ToBoolean(reader[8]);
+                        //aux = new Usuario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetInt32(7), reader.GetBoolean(8));
+                        usuariosNoAmigos.Add(user);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return usuariosNoAmigos;
+        }
+
+        public List<Usuario> obtenerAmigos(int logedUserId)
+        {
+            List<Usuario> amigos = new List<Usuario>();
+
+            //Defino el string con la consulta que quiero realizar
+            string queryString = "SELECT * from [dbo].[usuarios] where (id IN " +
+                "(SELECT amigo_id FROM [dbo].[usuarios_amigos] where [usuario_id] = @logedUserId));";
+
+            // Creo una conexión SQL con un Using, de modo que al finalizar, la conexión se cierra y se liberan recursos
+            using (SqlConnection connection =
+                new SqlConnection(connectionString))
+            {
+                // Defino el comando a enviar al motor SQL con la consulta y la conexión
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@logedUserId", SqlDbType.BigInt));
+                command.Parameters["@logedUserId"].Value = logedUserId;
+                try
+                {
+                    //Abro la conexión
+                    connection.Open();
+                    //mi objecto DataReader va a obtener los resultados de la consulta, notar que a comando se le pide ExecuteReader()
+                    SqlDataReader reader = command.ExecuteReader();
+                    Usuario user = new Usuario();
+                    //mientras haya registros/filas en mi DataReader, sigo leyendo
+                    while (reader.Read())
+                    {
+                        user.Id = Convert.ToInt32(reader[0]);
+                        user.Nombre = Convert.ToString(reader[1]);
+                        user.Apellido = Convert.ToString(reader[2]);
+                        user.Dni = Convert.ToString(reader[3]);
+                        user.Email = Convert.ToString(reader[4]);
+                        user.Password = Convert.ToString(reader[5]);
+                        user.EsADM = Convert.ToBoolean(reader[6]);
+                        user.IntentosFallidos = Convert.ToInt32(reader[7]);
+                        user.Bloqueado = Convert.ToBoolean(reader[8]);
+                        //aux = new Usuario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetInt32(7), reader.GetBoolean(8));
+                        amigos.Add(user);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return amigos;
+        }
+
         public int iniciarSesion(string dni, string password)
         {
             int idUser = -1;

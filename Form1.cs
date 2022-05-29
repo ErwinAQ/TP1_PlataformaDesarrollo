@@ -20,10 +20,11 @@ namespace TP1_PlataformaDesarrollo
         Form5 InicioUserLogueado;
 
         //Variables auxiliares
-        RedSocial redSocial = new RedSocial();
+        RedSocial redSocial;
 
         public Form1()
         {
+            this.redSocial = new RedSocial();
             InitializeComponent();
             initializeForm2();
         }
@@ -51,7 +52,7 @@ namespace TP1_PlataformaDesarrollo
 
                 //* menuRegistro;
                 case 2:
-                    menuRegistro = new Form4();
+                    menuRegistro = new Form4(this.redSocial);
                     menuRegistro.MdiParent = this;
                     menuRegistro.volverAtras += initializeForm2;
                     menuRegistro.Show();
@@ -68,7 +69,7 @@ namespace TP1_PlataformaDesarrollo
             else
             {
                 MessageBox.Show("Bienvenido al red social ");
-                InicioUserLogueado = new Form5();
+                InicioUserLogueado = new Form5(this.redSocial);
                 InicioUserLogueado.MdiParent = this;
                 InicioUserLogueado.Show();
             }

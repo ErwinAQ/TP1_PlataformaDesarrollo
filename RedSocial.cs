@@ -12,6 +12,8 @@ namespace TP1_PlataformaDesarrollo
     public class RedSocial
     {
         public List<Usuario> Usuarios { get; set; }
+        public List<Usuario> usuarioNoAmigos { get; set; }
+
         public Usuario logedUser;
         private DAL DB;
 
@@ -61,19 +63,19 @@ namespace TP1_PlataformaDesarrollo
         {
             int userId;
             userId = DB.iniciarSesion(Dni, Password);
-            Console.Out.WriteLine("UserId devuelto: " + userId);
             if (userId != -1)
             {
                 this.logedUser = DB.getUserFromDatabase(userId);
-                Console.Out.WriteLine("Nombre logueado: " + this.logedUser.Nombre);
+                this.logedUser.Amigos = DB.obtenerAmigos(userId);
+                this.usuarioNoAmigos = DB.inicializarUsuariosNoAmigos(userId);
             }
             bool resultLogin = userId != -1;
             return resultLogin;
         }
         public bool IdUsuarioLogueado(int _codigoRetorno)
         {
-            if (_codigoRetorno != 1) { return true; }
-            else { return false; }
+            bool result = _codigoRetorno != 1;
+            return result;
         }
 
         public void EliminarUsuario()
