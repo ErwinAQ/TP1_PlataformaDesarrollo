@@ -33,13 +33,13 @@
             this.cerrarSesionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridAmigosActuales = new System.Windows.Forms.DataGridView();
+            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EliminarAmigoColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridNoAmigos = new System.Windows.Forms.DataGridView();
             this.NoFriendNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addFriendColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.welcomeUserLabel = new System.Windows.Forms.Label();
-            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EliminarAmigoColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAmigosActuales)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNoAmigos)).BeginInit();
@@ -90,6 +90,20 @@
             this.dataGridAmigosActuales.Name = "dataGridAmigosActuales";
             this.dataGridAmigosActuales.Size = new System.Drawing.Size(247, 101);
             this.dataGridAmigosActuales.TabIndex = 2;
+            this.dataGridAmigosActuales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridAmigosActuales_CellClick);
+            // 
+            // nameColumn
+            // 
+            this.nameColumn.HeaderText = "Nombre";
+            this.nameColumn.Name = "nameColumn";
+            this.nameColumn.ReadOnly = true;
+            // 
+            // EliminarAmigoColumn
+            // 
+            this.EliminarAmigoColumn.HeaderText = "";
+            this.EliminarAmigoColumn.Name = "EliminarAmigoColumn";
+            this.EliminarAmigoColumn.Text = "";
+            this.EliminarAmigoColumn.ToolTipText = "Eliminar";
             // 
             // label2
             // 
@@ -109,8 +123,9 @@
             this.addFriendColumn});
             this.dataGridNoAmigos.Location = new System.Drawing.Point(12, 244);
             this.dataGridNoAmigos.Name = "dataGridNoAmigos";
-            this.dataGridNoAmigos.Size = new System.Drawing.Size(247, 89);
+            this.dataGridNoAmigos.Size = new System.Drawing.Size(247, 194);
             this.dataGridNoAmigos.TabIndex = 4;
+            this.dataGridNoAmigos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNoAmigos_CellClick);
             // 
             // NoFriendNameColumn
             // 
@@ -132,19 +147,6 @@
             this.welcomeUserLabel.Size = new System.Drawing.Size(63, 13);
             this.welcomeUserLabel.TabIndex = 5;
             this.welcomeUserLabel.Text = "Bienvenido!";
-            // 
-            // nameColumn
-            // 
-            this.nameColumn.HeaderText = "Nombre";
-            this.nameColumn.Name = "nameColumn";
-            this.nameColumn.ReadOnly = true;
-            // 
-            // EliminarAmigoColumn
-            // 
-            this.EliminarAmigoColumn.HeaderText = "";
-            this.EliminarAmigoColumn.Name = "EliminarAmigoColumn";
-            this.EliminarAmigoColumn.Text = "";
-            this.EliminarAmigoColumn.ToolTipText = "Eliminar";
             // 
             // Form5
             // 

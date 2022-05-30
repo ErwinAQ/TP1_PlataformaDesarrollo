@@ -18,6 +18,7 @@ namespace TP1_PlataformaDesarrollo
         Form3 menuLogin;
         Form4 menuRegistro;
         Form5 InicioUserLogueado;
+        Form6 InicioAdminLogueado;
 
         //Variables auxiliares
         RedSocial redSocial;
@@ -64,7 +65,10 @@ namespace TP1_PlataformaDesarrollo
         {
             if (this.redSocial.logedUser.EsADM)
             {
-                Console.Out.WriteLine("Crear form para admin");
+                MessageBox.Show("Bienvenido administrador");
+                InicioAdminLogueado = new Form6(this.redSocial);
+                InicioAdminLogueado.MdiParent = this;
+                InicioAdminLogueado.Show();
             }
             else
             {
