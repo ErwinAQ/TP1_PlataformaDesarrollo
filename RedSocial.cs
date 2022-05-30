@@ -86,15 +86,24 @@ namespace TP1_PlataformaDesarrollo
             return result;
         }
 
-        public void EliminarUsuario()
+        public bool EliminarUsuario(int idUser)
         {
+            bool resultEliminar = DB.eliminarUsuario(idUser);
+            if (resultEliminar)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
             //Elimina los comentarios, reacciones y posts del usuario. Luego elimina el
             //usuario UsuarioActual(ver en método debajo).
             //logedUser.MisComentarios.Remove;
             //logedUser.MisPost.Remove;
             //logedUser.MisReacciones.Remove;
-            
-            
+
+
         }
         public void CerrarSesion()
         {
