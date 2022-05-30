@@ -225,6 +225,34 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
+        public bool eliminarAmigo(int userId, int exAmigoId)
+        {
+            bool result = false;
+            string connectionString = Properties.Resources.ConnectionStr;
+            string queryString = "DELETE FROM [dbo].[usuarios_amigos] WHERE [usuario_id]=@userId " +
+                                    "AND ([amigo_id] = @exAmigoId);";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@userId", SqlDbType.BigInt));
+                command.Parameters["@userId"].Value = userId;
+                command.Parameters.Add(new SqlParameter("@exAmigoId", SqlDbType.BigInt));
+                command.Parameters["@exAmigoId"].Value = exAmigoId;
+                try
+                {
+                    connection.Open();
+                    command.ExecuteReader();
+                    connection.Close();
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                return result;
+            }
+        }
+
         //devuelve el ID del usuario agregado a la base, si algo falla devuelve -1
         public int agregarUsuario(string Nombre, string Apellido, string Dni, string Email, string Password, bool EsADM, int IntentosFallidos, bool Bloqueado)
         {

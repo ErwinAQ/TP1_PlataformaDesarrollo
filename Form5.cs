@@ -57,5 +57,21 @@ namespace TP1_PlataformaDesarrollo
                 Console.Out.WriteLine("NombreNoaMIGO: " + noAmigos[e.RowIndex].Nombre);
             }
         }
+
+        private void dataGridAmigosActuales_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            List<Usuario> amigos = this.redSocial.logedUser.Amigos;
+            if (e.ColumnIndex == 1) // solo si selecciona la columna de agregar
+            {
+                if (this.redSocial.QuitarAmigo(amigos[e.RowIndex].Id))
+                {
+                    MessageBox.Show("Usuario eliminado");
+                }
+                else
+                {
+                    MessageBox.Show("El usuario no se pudo eliminar");
+                }
+            }
+        }
     }
 }

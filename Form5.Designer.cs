@@ -90,6 +90,7 @@
             this.dataGridAmigosActuales.Name = "dataGridAmigosActuales";
             this.dataGridAmigosActuales.Size = new System.Drawing.Size(247, 101);
             this.dataGridAmigosActuales.TabIndex = 2;
+            this.dataGridAmigosActuales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridAmigosActuales_CellClick);
             // 
             // nameColumn
             // 

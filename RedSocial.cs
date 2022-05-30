@@ -101,9 +101,28 @@ namespace TP1_PlataformaDesarrollo
             //Cerrar la sesion actual.
             logedUser = null;
         }
-        public void QuitarAmigo(in Usuario ExAmigo)
+        public bool QuitarAmigo(int exAmigoId)
         {
-            var variable = ExAmigo.Id;
+            Console.Out.WriteLine("exAmigoId " + exAmigoId);
+            bool resultEliminarmeDeMiAmigo ;
+            bool resultEliminarAmigo = DB.eliminarAmigo(this.logedUser.Id, exAmigoId);
+            if (resultEliminarAmigo)
+            {
+                resultEliminarmeDeMiAmigo = DB.eliminarAmigo(exAmigoId, this.logedUser.Id);
+                if (resultEliminarmeDeMiAmigo)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            /*var variable = ExAmigo.Id;
             //Quita el usuario UsuarioActual de la lista de amigos de
             //ExAmigo y a la vez quita ExAmigo de la lista de amigos del usuario UsuarioActual.
             //ExAmigo.loguedUser.remove;
@@ -118,9 +137,9 @@ namespace TP1_PlataformaDesarrollo
                     //return arrayNumeros.some(elemento => elemento < 0)
                 }
 
-            }
-            
-            
+            }*/
+
+
         }
         public void Postear(in Post Postt, in List<Tag>Tags)
         {
