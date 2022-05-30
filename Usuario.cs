@@ -20,20 +20,28 @@ namespace TP1_PlataformaDesarrollo
 
         public string Password { get; set; }
 
-        public int Dni { get; set; }
+        public string Dni { get; set; }
 
         public int IntentosFallidos { get; set; }
 
         public bool Bloqueado { get; set; }
 
+        public bool EsADM { get; set; }
+
         public Usuario() { }
-        public Usuario(string nombre, string apellido, string mail, string pass, int dni)
+        public Usuario(int id, string nombre, string apellido, String dni, string mail, string pass, bool esADM, int intentosFallidos, bool bloqueado)
         {
+            Id = id;
             Nombre = nombre;
             Apellido = apellido;
+            Dni = dni;
             Email = mail;
             Password = pass;
-            Dni = dni;
+            EsADM = esADM;
+            IntentosFallidos = intentosFallidos;
+            Bloqueado = bloqueado;
+
+            
         }
 
         public List<Usuario> Amigos { get; set; }
