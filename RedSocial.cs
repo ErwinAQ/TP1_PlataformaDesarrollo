@@ -4,128 +4,166 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace TP1_PlataformaDesarrollo
 {
     public class RedSocial
     {
-        public List<Usuario> usuarios { get; set; }
+        public List<Usuario> Usuarios { get; set; }
+        public List<Usuario> usuarioNoAmigos { get; set; }
+
         public Usuario logedUser;
+        private DAL DB;
 
         public RedSocial()
         {
-            usuarios = new List<Usuario>();
-            //  llenar lista de usuarios
-            this.initializeUserList();
+            Usuarios = new List<Usuario>();
+            DB = new DAL();
+            inicializarAtributos();
         }
 
-        private void initializeUserList()
+        private void inicializarAtributos()
         {
-            StreamReader lectura;
-            String cadena;
-            String[] campos = new string[4];
-            char[] separador = { ';' };
-            try
+            Usuarios = DB.inicializarUsuarios();
+        }
+
+        public bool agregarUsuario(string Nombre, string Apellido, string Dni, string Email, string Password, bool EsADM, int IntentosFallidos, bool Bloqueado)
+        {
+            //comprobación para que no me agreguen usuarios con DNI duplicado
+            bool esValido = true;
+            foreach (Usuario u in Usuarios)
             {
-                lectura = File.OpenText("C:/Users/" + Environment.UserName + "/AppData/Local/RedSocial/RedSocial/usuarios.txt");
-                cadena = lectura.ReadLine(); // para que lea la linea (primer linea)
-                while (cadena != null) // si se termina la cadena o si ecuentro el dato magico
-                {
-                    campos = cadena.Split(separador);
-                    Usuario tmpUser = new Usuario(campos[0], campos[1], campos[2], campos[3], Int32.Parse(campos[4]));
-                    this.AgregarUsuario(tmpUser);
-                    cadena = lectura.ReadLine();
-                }
-                lectura.Close();
+                if (u.Dni == Dni)
+                    esValido = false;
             }
-            catch (FileNotFoundException) { Console.WriteLine("Error"); }
-
-        }
-
-        public bool AgregarUsuario(Usuario usuario)
-        {
-            this.usuarios.Add(usuario);
-            return true;
-        }
-
-        public int IniciarSesion(int DNI, string password)
-        {
-
-            StreamReader lectura;
-            String cadena;
-            bool encontrado = false;
-            String[] campos = new string[4];
-            int codRetorno = -1;
-            char[] separador = { ';' };
-
-            /*
-             -1 -> usuario no encontrado
-            DNI (int) -> id usuario encontrado
-             */
-
-            try
+            if (esValido)
             {
-                lectura = File.OpenText("C:/Users/" + Environment.UserName + "/AppData/Local/RedSocial/RedSocial/usuarios.txt");
-                cadena = lectura.ReadLine(); // para que lea la linea (primer linea)
-                while (cadena != null && encontrado == false) // si se termina la cadena o si ecuentro el dato magico
+                int idNuevoUsuario;
+                idNuevoUsuario = DB.agregarUsuario(Nombre, Apellido, Dni, Email, Password, EsADM, IntentosFallidos, Bloqueado);
+                if (idNuevoUsuario != -1)
                 {
-                    campos = cadena.Split(separador);
-                    if (Int32.Parse(campos[4].Trim()).Equals(DNI))
-                    {
-                        if (campos[3].Trim().Equals(password))
-                        {
-                            codRetorno = Int32.Parse(campos[4]); // encontro a usuario
-                            encontrado = true;
-                        }
-                    }
-                    else
-                    {
-                        cadena = lectura.ReadLine(); // para que lea la proxima linea
-                    }
-
+                    //Ahora sí lo agrego en la lista
+                    Usuario nuevo = new Usuario(idNuevoUsuario, Nombre, Apellido, Dni, Email, Password, EsADM, IntentosFallidos, Bloqueado);
+                    Usuarios.Add(nuevo);
+                    return true;
                 }
-                lectura.Close();
+                else
+                {
+                    //algo salió mal con la query porque no generó un id válido
+                    return false;
+                }
             }
-            catch (FileNotFoundException) { Console.WriteLine("Error"); }
-            catch (Exception eex) { Console.WriteLine("Error" + eex.Message); }
-
-
-            return codRetorno;
+            else
+                return false;
         }
 
-       /* public Usuario getUserByDNI(int dni)
+        public bool IniciarSesion(string Dni, string Password)
         {
-            int indexUser = this.usuarios.
-            return;
-        }*/
+            int userId;
+            userId = DB.iniciarSesion(Dni, Password);
+            if (userId != -1)
+            {
+                this.logedUser = DB.getUserFromDatabase(userId);
+                if (this.logedUser.EsADM)
+                {
+                    this.Usuarios = DB.inicializarUsuarios();
+                }
+                else
+                {
+                    this.logedUser.Amigos = DB.obtenerAmigos(userId);
+                    this.usuarioNoAmigos = DB.inicializarUsuariosNoAmigos(userId);
+                }
+            }
 
+            bool resultLogin = userId != -1;
+            return resultLogin;
+        }
         public bool IdUsuarioLogueado(int _codigoRetorno)
         {
-            if (_codigoRetorno != 1) { return true; }
-            else { return false; }
+            bool result = _codigoRetorno != 1;
+            return result;
         }
 
-        public void EliminarUsuario()
+        public bool EliminarUsuario(int idUser)
         {
-            //Eliminar el usuario de la lista de amigos
+            bool resultEliminar = DB.eliminarUsuario(idUser);
+            if (resultEliminar)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            //Elimina los comentarios, reacciones y posts del usuario. Luego elimina el
+            //usuario UsuarioActual(ver en método debajo).
+            //logedUser.MisComentarios.Remove;
+            //logedUser.MisPost.Remove;
+            //logedUser.MisReacciones.Remove;
+
+
         }
         public void CerrarSesion()
         {
-           //Cerrar la sesion actual.
+            //Cerrar la sesion actual.
+            logedUser = null;
         }
-        public void QuitarAmigo(in Usuario ExAmigo)
+        public bool QuitarAmigo(int exAmigoId)
         {
+            Console.Out.WriteLine("exAmigoId " + exAmigoId);
+            bool resultEliminarmeDeMiAmigo ;
+            bool resultEliminarAmigo = DB.eliminarAmigo(this.logedUser.Id, exAmigoId);
+            if (resultEliminarAmigo)
+            {
+                resultEliminarmeDeMiAmigo = DB.eliminarAmigo(exAmigoId, this.logedUser.Id);
+                if (resultEliminarmeDeMiAmigo)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            /*var variable = ExAmigo.Id;
             //Quita el usuario UsuarioActual de la lista de amigos de
             //ExAmigo y a la vez quita ExAmigo de la lista de amigos del usuario UsuarioActual.
+            //ExAmigo.loguedUser.remove;
+            if(ExAmigo != null) {
+
+                var resultado = Usuarios.Find(Param => Param.Id == variable);
+
+                if (resultado != null)
+                {
+                    logedUser.Amigos.Remove(ExAmigo);
+                    this.Usuarios.Remove(ExAmigo);
+                    //return arrayNumeros.some(elemento => elemento < 0)
+                }
+
+            }*/
+
+
         }
-        public void Postear(in Post post, in Tag tag)
+        public void Postear(in Post Postt, in List<Tag>Tags)
         {
             /*Agrega el Post p a la lista de posts, agrega el post a la lista del
             usuario UsuarioActual. Revisa los tags, si no están en la lista de tags los agrega, luego para cada
             tag agrega el post p a su lista de posts y agrega los tags en t a la lista de tags del post p.*/
+            
+            logedUser.MisPost.Add(Postt);
         }
-        public void ModificarPost(in Post post)
+        public void ModificarPost(in Post Post)
         {
+            if (Post is null)
+            {
+                throw new ArgumentNullException(nameof(Post));
+            }
             //Idem modificar usuario pero con datos de post.
         }
         public void EliminarPost(in Post post)
@@ -155,6 +193,7 @@ namespace TP1_PlataformaDesarrollo
         public void QuitarReaccion(in Post post, in Reaccion reaccion)
         {
             //Elimina la reacción r del post p.
+
         }
         public void MostrarDatos()
         {
