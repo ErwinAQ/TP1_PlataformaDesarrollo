@@ -22,7 +22,7 @@ namespace TP1_PlataformaDesarrollo
             List<Usuario> misUsuarios = new List<Usuario>();
 
             //Defino el string con la consulta que quiero realizar
-            string queryString = "SELECT * from dbo.Usuarios where es_admin != 0";
+            string queryString = "SELECT * FROM [dbo].[usuarios] WHERE [es_admin] != 1;";
 
             // Creo una conexión SQL con un Using, de modo que al finalizar, la conexión se cierra y se liberan recursos
             using (SqlConnection connection =
@@ -36,12 +36,20 @@ namespace TP1_PlataformaDesarrollo
                     connection.Open();
                     //mi objecto DataReader va a obtener los resultados de la consulta, notar que a comando se le pide ExecuteReader()
                     SqlDataReader reader = command.ExecuteReader();
-                    Usuario aux;
                     //mientras haya registros/filas en mi DataReader, sigo leyendo
                     while (reader.Read())
                     {
-                        aux = new Usuario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetInt32(7), reader.GetBoolean(8));
-                        misUsuarios.Add(aux);
+                        Usuario user = new Usuario();
+                        user.Id = Convert.ToInt32(reader[0]);
+                        user.Nombre = Convert.ToString(reader[1]);
+                        user.Apellido = Convert.ToString(reader[2]);
+                        user.Dni = Convert.ToString(reader[3]);
+                        user.Email = Convert.ToString(reader[4]);
+                        user.Password = Convert.ToString(reader[5]);
+                        user.EsADM = Convert.ToBoolean(reader[6]);
+                        user.IntentosFallidos = Convert.ToInt32(reader[7]);
+                        user.Bloqueado = Convert.ToBoolean(reader[8]);
+                        misUsuarios.Add(user);
                     }
                     //En este punto ya recorrí todas las filas del resultado de la query
                     reader.Close();
@@ -78,10 +86,10 @@ namespace TP1_PlataformaDesarrollo
                     connection.Open();
                     //mi objecto DataReader va a obtener los resultados de la consulta, notar que a comando se le pide ExecuteReader()
                     SqlDataReader reader = command.ExecuteReader();
-                    Usuario user = new Usuario();
                     //mientras haya registros/filas en mi DataReader, sigo leyendo
                     while (reader.Read())
                     {
+                        Usuario user = new Usuario();
                         user.Id = Convert.ToInt32(reader[0]);
                         user.Nombre = Convert.ToString(reader[1]);
                         user.Apellido = Convert.ToString(reader[2]);
@@ -91,7 +99,6 @@ namespace TP1_PlataformaDesarrollo
                         user.EsADM = Convert.ToBoolean(reader[6]);
                         user.IntentosFallidos = Convert.ToInt32(reader[7]);
                         user.Bloqueado = Convert.ToBoolean(reader[8]);
-                        //aux = new Usuario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetInt32(7), reader.GetBoolean(8));
                         usuariosNoAmigos.Add(user);
                     }
                     reader.Close();
@@ -126,10 +133,10 @@ namespace TP1_PlataformaDesarrollo
                     connection.Open();
                     //mi objecto DataReader va a obtener los resultados de la consulta, notar que a comando se le pide ExecuteReader()
                     SqlDataReader reader = command.ExecuteReader();
-                    Usuario user = new Usuario();
                     //mientras haya registros/filas en mi DataReader, sigo leyendo
                     while (reader.Read())
                     {
+                        Usuario user = new Usuario();
                         user.Id = Convert.ToInt32(reader[0]);
                         user.Nombre = Convert.ToString(reader[1]);
                         user.Apellido = Convert.ToString(reader[2]);
@@ -269,68 +276,5 @@ namespace TP1_PlataformaDesarrollo
                 return idNuevoUsuario;
             }
         }
-        //devuelve la cantidad de elementos modificados en la base (debería ser 1 si anduvo bien)
-
-        /*public int eliminarUsuario(int Id)
-        {
-            string connectionString = Properties.Resources.ConnectionStr;
-            string queryString = "DELETE FROM [dbo].[Usuarios] WHERE ID=@id";
-            using (SqlConnection connection =
-                new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
-                command.Parameters["@id"].Value = Id;
-                try
-                {
-                    connection.Open();
-                    //esta consulta NO espera un resultado para leer, es del tipo NON Query
-                    return command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return 0;
-                }
-            }
-        }*/
-
-        //devuelve la cantidad de elementos modificados en la base (debería ser 1 si anduvo bien)
-        /*public int modificarUsuario(int Id, int Dni, string Nombre, string Mail, string Password, bool EsADM, bool Bloqueado)
-        {
-            string connectionString = Properties.Resources.ConnectionStr;
-            string queryString = "UPDATE [dbo].[Usuarios] SET Nombre=@nombre, Mail=@mail,Password=@password, EsADM=@esadm, Bloqueado=@bloqueado WHERE ID=@id;";
-            using (SqlConnection connection =
-                new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
-                command.Parameters.Add(new SqlParameter("@dni", SqlDbType.Int));
-                command.Parameters.Add(new SqlParameter("@nombre", SqlDbType.NVarChar));
-                command.Parameters.Add(new SqlParameter("@mail", SqlDbType.NVarChar));
-                command.Parameters.Add(new SqlParameter("@password", SqlDbType.NVarChar));
-                command.Parameters.Add(new SqlParameter("@esadm", SqlDbType.Bit));
-                command.Parameters.Add(new SqlParameter("@bloqueado", SqlDbType.Bit));
-                command.Parameters["@id"].Value = Id;
-                command.Parameters["@dni"].Value = Dni;
-                command.Parameters["@nombre"].Value = Nombre;
-                command.Parameters["@mail"].Value = Mail;
-                command.Parameters["@password"].Value = Password;
-                command.Parameters["@esadm"].Value = EsADM;
-                command.Parameters["@bloqueado"].Value = Bloqueado;
-                try
-                {
-                    connection.Open();
-                    //esta consulta NO espera un resultado para leer, es del tipo NON Query
-                    return command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return 0;
-                }
-            }
-        }*/
-
     }
 }

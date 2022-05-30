@@ -66,9 +66,17 @@ namespace TP1_PlataformaDesarrollo
             if (userId != -1)
             {
                 this.logedUser = DB.getUserFromDatabase(userId);
-                this.logedUser.Amigos = DB.obtenerAmigos(userId);
-                this.usuarioNoAmigos = DB.inicializarUsuariosNoAmigos(userId);
+                if (this.logedUser.EsADM)
+                {
+                    this.Usuarios = DB.inicializarUsuarios();
+                }
+                else
+                {
+                    this.logedUser.Amigos = DB.obtenerAmigos(userId);
+                    this.usuarioNoAmigos = DB.inicializarUsuariosNoAmigos(userId);
+                }
             }
+
             bool resultLogin = userId != -1;
             return resultLogin;
         }
