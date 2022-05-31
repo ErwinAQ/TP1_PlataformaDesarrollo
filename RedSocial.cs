@@ -105,6 +105,41 @@ namespace TP1_PlataformaDesarrollo
 
 
         }
+
+
+        public bool modificarUsuario(int Id, string Nombre, string Apellido, string Dni, string Email, bool EsADM, int IntentosFallido, bool Bloqueado)
+        {
+            //primero me aseguro que lo pueda agregar a la base
+            if (DB.modificarUsuario(Id, Nombre, Apellido, Dni, Email, EsADM, IntentosFallido, Bloqueado) == 1)
+            {
+                try
+                {
+                    //Ahora sí lo MODIFICO en la lista
+                    for (int i = 0; i < Usuarios.Count; i++)
+                        if (Usuarios[i].Id == Id)
+                        {
+                            Usuarios[i].Nombre = Nombre;
+                            Usuarios[i].Apellido = Apellido;
+                            Usuarios[i].Dni = Dni;
+                            Usuarios[i].Email = Email;
+                            Usuarios[i].EsADM = EsADM;
+                            Usuarios[i].IntentosFallidos = IntentosFallido;
+                            Usuarios[i].Bloqueado = Bloqueado;
+                        }
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                //algo salió mal con la query porque no generó 1 registro
+                return false;
+            }
+        }
+        
         public void CerrarSesion()
         {
             //Cerrar la sesion actual.

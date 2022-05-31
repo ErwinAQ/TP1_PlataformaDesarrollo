@@ -361,43 +361,81 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
-        //comentar despues
-       /* public List<Post> inicializarPost(int logedUserId)
+
+        public int modificarUsuario(int Id, string Nombre, string Apellido, string Dni, string Email, bool EsADM, int IntentosFallidos, bool Bloqueado)
         {
-            List<Post> crearPost = new List<Post>();
-
-            //Defino el string pero FALTA CREAR POST
-            string queryString = "INSERT INTO [dbo].[post] ([post_id][fecha],[contenido]) VALUES(@fecha,@contenido,@post_id)"; //verificar post id, paso intermedio para idusuario
-
-
-            command.Parameters.Add(new SqlParameter("@post_id", SqlDbType.Int));
-            command.Parameters.Add(new SqlParameter("@fecha", SqlDbType.Date));
-            command.Parameters.Add(new SqlParameter("@contenido", SqlDbType.NVarChar));
-            command.Parameters["@post_id"].Value = Post_id;
-            command.Parameters["@fecha"].Value = Fecha;
-            command.Parameters["@contenido"].Value = Contenido; //Verificar
-            try
+            string connectionString = Properties.Resources.ConnectionStr;
+            string queryString = "UPDATE [dbo].[usuarios] SET [nombre]=@nombre, [apellido]=@apellido, [dni]=@dni, [email]=@email, [es_admin]=@esadm, [intentos_fallidos]=@intentosFallidos, [bloqueado]=@bloqueado WHERE [id]=@id;";
+            using (SqlConnection connection =
+                new SqlConnection(connectionString))
             {
-                connection.Open();
-                //esta consulta NO espera un resultado para leer, es del tipo NON Query
-                resultadoQuery = command.ExecuteNonQuery();
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
+                command.Parameters.Add(new SqlParameter("@nombre", SqlDbType.NVarChar));
+                command.Parameters.Add(new SqlParameter("@apellido", SqlDbType.NVarChar));
+                command.Parameters.Add(new SqlParameter("@dni", SqlDbType.NVarChar));
+                command.Parameters.Add(new SqlParameter("@email", SqlDbType.NVarChar));
+                command.Parameters.Add(new SqlParameter("@esadm", SqlDbType.Bit));
+                command.Parameters.Add(new SqlParameter("@intentosFallidos", SqlDbType.NVarChar));
+                command.Parameters.Add(new SqlParameter("@bloqueado", SqlDbType.Bit));
+                command.Parameters["@id"].Value = Id;
+                command.Parameters["@nombre"].Value = Nombre;
+                command.Parameters["@apellido"].Value = Apellido;
+                command.Parameters["@dni"].Value = Dni;
+                command.Parameters["@email"].Value = Email;
+                command.Parameters["@esadm"].Value = EsADM;
+                command.Parameters["@intentosFallidos"].Value = IntentosFallidos;
+                command.Parameters["@bloqueado"].Value = Bloqueado;
+                try
+                {
+                    connection.Open();
+                    //esta consulta NO espera un resultado para leer, es del tipo NON Query
+                    return command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return 0;
+                }
+            }
+        }
+        //comentar despues
+        /* public List<Post> inicializarPost(int logedUserId)
+         {
+             List<Post> crearPost = new List<Post>();
 
-                //***************
-                //Ahora hago esta query para obtener el ID
-                string ConsultaID = "SELECT MAX([post_id]) FROM [dbo].[post]";
-                command = new SqlCommand(ConsultaID, connection);
-                SqlDataReader reader = command.ExecuteReader();
-                reader.Read();
-                idNuevoUsuario = Convert.ToInt32(reader[0]);
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al insertar: " + ex.Message);
-                return -1;
-            }
-            return idNuevoPost;
-        } */
+             //Defino el string pero FALTA CREAR POST
+             string queryString = "INSERT INTO [dbo].[post] ([post_id][fecha],[contenido]) VALUES(@fecha,@contenido,@post_id)"; //verificar post id, paso intermedio para idusuario
+
+
+             command.Parameters.Add(new SqlParameter("@post_id", SqlDbType.Int));
+             command.Parameters.Add(new SqlParameter("@fecha", SqlDbType.Date));
+             command.Parameters.Add(new SqlParameter("@contenido", SqlDbType.NVarChar));
+             command.Parameters["@post_id"].Value = Post_id;
+             command.Parameters["@fecha"].Value = Fecha;
+             command.Parameters["@contenido"].Value = Contenido; //Verificar
+             try
+             {
+                 connection.Open();
+                 //esta consulta NO espera un resultado para leer, es del tipo NON Query
+                 resultadoQuery = command.ExecuteNonQuery();
+
+                 //***************
+                 //Ahora hago esta query para obtener el ID
+                 string ConsultaID = "SELECT MAX([post_id]) FROM [dbo].[post]";
+                 command = new SqlCommand(ConsultaID, connection);
+                 SqlDataReader reader = command.ExecuteReader();
+                 reader.Read();
+                 idNuevoUsuario = Convert.ToInt32(reader[0]);
+                 reader.Close();
+             }
+             catch (Exception ex)
+             {
+                 Console.WriteLine("Error al insertar: " + ex.Message);
+                 return -1;
+             }
+             return idNuevoPost;
+         } */
 
         /*public int eliminarPost(int Post_id) //varchar o int a la hora de crear el post
         {

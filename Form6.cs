@@ -12,6 +12,13 @@ namespace TP1_PlataformaDesarrollo
 {
     public partial class Form6 : Form
     {
+        public delegate void opcElegida(int opcionElegida, int indexItemSeleccionado);
+        public opcElegida seleccionarTabla;
+
+        private const int UPDATE_USUARIO = 1;
+        private const int UPDATE_POSTS = 2;
+        private const int UPDATE_TAGS = 3;
+
         private RedSocial redSocial;
         public Form6(RedSocial redSocial)
         {
@@ -51,7 +58,7 @@ namespace TP1_PlataformaDesarrollo
 
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             List<Usuario> usuarios = this.redSocial.Usuarios;
             if (e.ColumnIndex == 9) // solo si selecciona la columna de agregar
@@ -65,7 +72,11 @@ namespace TP1_PlataformaDesarrollo
                     MessageBox.Show("El usuario no se pudo eliminar");
                 }
             }
+        }
 
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.seleccionarTabla(UPDATE_USUARIO, e.RowIndex);
         }
     }
 }

@@ -19,6 +19,7 @@ namespace TP1_PlataformaDesarrollo
         Form4 menuRegistro;
         Form5 InicioUserLogueado;
         Form6 InicioAdminLogueado;
+        Form7 UpdateUsuario;
 
         //Variables auxiliares
         RedSocial redSocial;
@@ -65,9 +66,9 @@ namespace TP1_PlataformaDesarrollo
         {
             if (this.redSocial.logedUser.EsADM)
             {
-                MessageBox.Show("Bienvenido administrador");
                 InicioAdminLogueado = new Form6(this.redSocial);
                 InicioAdminLogueado.MdiParent = this;
+                InicioAdminLogueado.seleccionarTabla += seleccionarTabla;
                 InicioAdminLogueado.Show();
             }
             else
@@ -93,5 +94,39 @@ namespace TP1_PlataformaDesarrollo
         //-  en la clase Red Social buscamos en toda la lista de usuarios el usuario que tenga el id
         //   que nos devolvió la función IniciarSesion
          */
+
+        private void seleccionarTabla(int opcionElegida, int indexItemSeleccionado)
+        {
+            switch (opcionElegida)
+            {
+                case 1:
+                    //ABMproductos = new Form8(); // Pasar arr list de productos
+                    initializeForm7(this.redSocial.Usuarios[indexItemSeleccionado]);
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+                    break;
+            }
+        }
+
+        private void initializeForm7(Usuario usuarioSelected)
+        {
+            UpdateUsuario = new Form7(usuarioSelected);
+            UpdateUsuario.MdiParent = this;
+            UpdateUsuario.ModificaUsuario += modificarUsuario;
+            UpdateUsuario.volverAtras += logHandler;
+            UpdateUsuario.Show();
+        }
+
+        private bool modificarUsuario(int Id, string Nombre, string Apellido, string Dni, string Email, bool EsADM, int IntentosFallidos, bool Bloqueado)
+        {
+            if (this.redSocial.modificarUsuario(Id, Nombre, Apellido, Dni, Email, EsADM, IntentosFallidos, Bloqueado))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
