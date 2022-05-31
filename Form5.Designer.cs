@@ -88,7 +88,7 @@
             this.EliminarAmigoColumn});
             this.dataGridAmigosActuales.Location = new System.Drawing.Point(12, 109);
             this.dataGridAmigosActuales.Name = "dataGridAmigosActuales";
-            this.dataGridAmigosActuales.Size = new System.Drawing.Size(247, 101);
+            this.dataGridAmigosActuales.Size = new System.Drawing.Size(247, 116);
             this.dataGridAmigosActuales.TabIndex = 2;
             this.dataGridAmigosActuales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridAmigosActuales_CellClick);
             // 

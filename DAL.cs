@@ -253,6 +253,34 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
+        public bool agregarAmigo(int userId, int nuevoAmigoId)
+        {
+            bool result = false;
+            string connectionString = Properties.Resources.ConnectionStr;
+            string queryString = "INSERT INTO [dbo].[usuarios_amigos] ([usuario_id],[amigo_id]) VALUES" +
+                                    "(@userId, @nuevoAmigoId), (@nuevoAmigoId, @userId);";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@userId", SqlDbType.BigInt));
+                command.Parameters.Add(new SqlParameter("@nuevoAmigoId", SqlDbType.BigInt));
+                command.Parameters["@userId"].Value = userId;
+                command.Parameters["@nuevoAmigoId"].Value = nuevoAmigoId;
+                try
+                {
+                    connection.Open();
+                    command.ExecuteReader();
+                    connection.Close();
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                return result;
+            }
+        }
+
         public bool eliminarUsuario(int idUser) 
         {
             bool result = false;
