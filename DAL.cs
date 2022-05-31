@@ -63,6 +63,8 @@ namespace TP1_PlataformaDesarrollo
             return misUsuarios;
         }
 
+
+
         public List<Usuario> inicializarUsuariosNoAmigos(int logedUserId)
         {
             List<Usuario> usuariosNoAmigos = new List<Usuario>();
@@ -358,5 +360,101 @@ namespace TP1_PlataformaDesarrollo
                 return idNuevoUsuario;
             }
         }
+
+        //comentar despues
+       /* public List<Post> inicializarPost(int logedUserId)
+        {
+            List<Post> crearPost = new List<Post>();
+
+            //Defino el string pero FALTA CREAR POST
+            string queryString = "INSERT INTO [dbo].[post] ([post_id][fecha],[contenido]) VALUES(@fecha,@contenido,@post_id)"; //verificar post id, paso intermedio para idusuario
+
+
+            command.Parameters.Add(new SqlParameter("@post_id", SqlDbType.Int));
+            command.Parameters.Add(new SqlParameter("@fecha", SqlDbType.Date));
+            command.Parameters.Add(new SqlParameter("@contenido", SqlDbType.NVarChar));
+            command.Parameters["@post_id"].Value = Post_id;
+            command.Parameters["@fecha"].Value = Fecha;
+            command.Parameters["@contenido"].Value = Contenido; //Verificar
+            try
+            {
+                connection.Open();
+                //esta consulta NO espera un resultado para leer, es del tipo NON Query
+                resultadoQuery = command.ExecuteNonQuery();
+
+                //***************
+                //Ahora hago esta query para obtener el ID
+                string ConsultaID = "SELECT MAX([post_id]) FROM [dbo].[post]";
+                command = new SqlCommand(ConsultaID, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                reader.Read();
+                idNuevoUsuario = Convert.ToInt32(reader[0]);
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al insertar: " + ex.Message);
+                return -1;
+            }
+            return idNuevoPost;
+        } */
+
+        /*public int eliminarPost(int Post_id) //varchar o int a la hora de crear el post
+        {
+            string connectionString = Properties.Resources.ConnectionStr;
+            string queryString = "DELETE FROM [dbo].[Post] WHERE Post_id=@post_id";
+            using (SqlConnection connection =
+                new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@post_id", SqlDbType.Int));
+                command.Parameters["@post_id"].Value = Post_id;
+                try
+                {
+                    connection.Open();
+                    //esta consulta NO espera un resultado para leer, es del tipo NON Query
+                    return command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return 0;
+                }
+            }
+        }*/
+
+        /*public int modificarPost(int Post_id, date Fecha, string Contenido)
+        {
+            string connectionString = Properties.Resources.ConnectionStr;
+            string queryString = "UPDATE [dbo].[Usuarios] SET Post_id=@post_id, Fecha=@fecha,Contenido=@contenido,";
+            using (SqlConnection connection =
+                new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@post_id", SqlDbType.Int));
+                command.Parameters.Add(new SqlParameter("@fecha", SqlDbType.Date));
+                command.Parameters.Add(new SqlParameter("@contenido", SqlDbType.NVarChar));
+                
+                command.Parameters["@post_id"].Value = Post_id;
+                command.Parameters["@fecha"].Value = Fecha;
+                command.Parameters["@contenido"].Value = Contenido;
+                
+                try
+                {
+                    connection.Open();
+                    //esta consulta NO espera un resultado para leer, es del tipo NON Query
+                    return command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return 0;
+                }
+            }
+        }*/
+
+    }
+}
+
     }
 }

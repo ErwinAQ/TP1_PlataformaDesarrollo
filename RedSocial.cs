@@ -192,6 +192,7 @@ namespace TP1_PlataformaDesarrollo
         public void QuitarReaccion(in Post post, in Reaccion reaccion)
         {
             //Elimina la reacción r del post p.
+
         }
         public void MostrarDatos()
         {
