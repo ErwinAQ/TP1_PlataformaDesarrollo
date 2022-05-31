@@ -54,7 +54,18 @@ namespace TP1_PlataformaDesarrollo
             List<Usuario> noAmigos = this.redSocial.usuarioNoAmigos;
             if (e.ColumnIndex == 1) // solo si selecciona la columna de agregar
             {
-                Console.Out.WriteLine("NombreNoaMIGO: " + noAmigos[e.RowIndex].Nombre);
+                if (this.redSocial.AgregarAmigo(noAmigos[e.RowIndex].Id))
+                {
+                    MessageBox.Show("El usuario ya es amigo suyo");
+                    this.dataGridAmigosActuales.Rows.Clear();
+                    this.dataGridNoAmigos.Rows.Clear();
+                    this.initializeDataGrids();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo agregar al amigo");
+                }
+                    
             }
         }
 
@@ -65,7 +76,10 @@ namespace TP1_PlataformaDesarrollo
             {
                 if (this.redSocial.QuitarAmigo(amigos[e.RowIndex].Id))
                 {
-                    MessageBox.Show("Usuario eliminado");
+                    MessageBox.Show("El usuario ya no es amigo suyo");
+                    this.dataGridAmigosActuales.Rows.Clear();
+                    this.dataGridNoAmigos.Rows.Clear();
+                    this.initializeDataGrids();
                 }
                 else
                 {

@@ -32,7 +32,6 @@
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,7 +41,8 @@
             this.Es_ADM = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IntentosFallidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Bloqueado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -68,7 +68,7 @@
             // cerrarSesionToolStripMenuItem
             // 
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesion";
             // 
             // dataGridView1
@@ -87,22 +87,14 @@
             this.Es_ADM,
             this.IntentosFallidos,
             this.Bloqueado,
-            this.Column10});
+            this.Eliminar});
             this.dataGridView1.Location = new System.Drawing.Point(58, 59);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(684, 150);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick_1);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(353, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 18);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Usuarios";
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // ID
             // 
@@ -149,10 +141,20 @@
             this.Bloqueado.HeaderText = "Bloqueado";
             this.Bloqueado.Name = "Bloqueado";
             // 
-            // Column10
+            // Eliminar
             // 
-            this.Column10.HeaderText = "";
-            this.Column10.Name = "Column10";
+            this.Eliminar.HeaderText = "Eliminar";
+            this.Eliminar.Name = "Eliminar";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(353, 28);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 18);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Usuarios";
             // 
             // Form6
             // 
@@ -191,6 +193,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Es_ADM;
         private System.Windows.Forms.DataGridViewTextBoxColumn IntentosFallidos;
         private System.Windows.Forms.DataGridViewTextBoxColumn Bloqueado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewButtonColumn Eliminar;
     }
 }

@@ -105,14 +105,64 @@ namespace TP1_PlataformaDesarrollo
 
 
         }
+
+
+        public bool modificarUsuario(int Id, string Nombre, string Apellido, string Dni, string Email, bool EsADM, int IntentosFallido, bool Bloqueado)
+        {
+            //primero me aseguro que lo pueda agregar a la base
+            if (DB.modificarUsuario(Id, Nombre, Apellido, Dni, Email, EsADM, IntentosFallido, Bloqueado) == 1)
+            {
+                try
+                {
+                    //Ahora sí lo MODIFICO en la lista
+                    for (int i = 0; i < Usuarios.Count; i++)
+                        if (Usuarios[i].Id == Id)
+                        {
+                            Usuarios[i].Nombre = Nombre;
+                            Usuarios[i].Apellido = Apellido;
+                            Usuarios[i].Dni = Dni;
+                            Usuarios[i].Email = Email;
+                            Usuarios[i].EsADM = EsADM;
+                            Usuarios[i].IntentosFallidos = IntentosFallido;
+                            Usuarios[i].Bloqueado = Bloqueado;
+                        }
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                //algo salió mal con la query porque no generó 1 registro
+                return false;
+            }
+        }
+        
         public void CerrarSesion()
         {
             //Cerrar la sesion actual.
             logedUser = null;
         }
+        public bool AgregarAmigo(int nuevoAmigoId)
+        {
+            int index = this.usuarioNoAmigos.FindIndex(a => a.Id == nuevoAmigoId);
+            bool resultAgregarAmigo = DB.agregarAmigo(this.logedUser.Id, nuevoAmigoId);
+            if (resultAgregarAmigo)
+            {
+                this.logedUser.Amigos.Add(this.usuarioNoAmigos[index]);
+                this.usuarioNoAmigos.RemoveAt(index);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public bool QuitarAmigo(int exAmigoId)
         {
-            Console.Out.WriteLine("exAmigoId " + exAmigoId);
+            int index = this.logedUser.Amigos.FindIndex(a => a.Id == exAmigoId);
             bool resultEliminarmeDeMiAmigo ;
             bool resultEliminarAmigo = DB.eliminarAmigo(this.logedUser.Id, exAmigoId);
             if (resultEliminarAmigo)
@@ -120,6 +170,8 @@ namespace TP1_PlataformaDesarrollo
                 resultEliminarmeDeMiAmigo = DB.eliminarAmigo(exAmigoId, this.logedUser.Id);
                 if (resultEliminarmeDeMiAmigo)
                 {
+                    this.usuarioNoAmigos.Add(this.logedUser.Amigos[index]);
+                    this.logedUser.Amigos.RemoveAt(index);
                     return true;
                 }
                 else
@@ -131,24 +183,6 @@ namespace TP1_PlataformaDesarrollo
             {
                 return false;
             }
-            /*var variable = ExAmigo.Id;
-            //Quita el usuario UsuarioActual de la lista de amigos de
-            //ExAmigo y a la vez quita ExAmigo de la lista de amigos del usuario UsuarioActual.
-            //ExAmigo.loguedUser.remove;
-            if(ExAmigo != null) {
-
-                var resultado = Usuarios.Find(Param => Param.Id == variable);
-
-                if (resultado != null)
-                {
-                    logedUser.Amigos.Remove(ExAmigo);
-                    this.Usuarios.Remove(ExAmigo);
-                    //return arrayNumeros.some(elemento => elemento < 0)
-                }
-
-            }*/
-
-
         }
         public void Postear(in Post Postt, in List<Tag>Tags)
         {
@@ -193,6 +227,7 @@ namespace TP1_PlataformaDesarrollo
         public void QuitarReaccion(in Post post, in Reaccion reaccion)
         {
             //Elimina la reacción r del post p.
+
         }
         public void MostrarDatos()
         {
