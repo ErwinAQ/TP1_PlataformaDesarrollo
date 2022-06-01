@@ -35,7 +35,7 @@ namespace TP1_PlataformaDesarrollo
         public void initializeDataGridUsuarios()
         {
 
-            Console.Out.WriteLine("cantidad" + this.redSocial.Usuarios[4].Id);
+            //Console.Out.WriteLine("cantidad" + this.redSocial.Usuarios[4].Id);
             List<Usuario> usuarios = this.redSocial.Usuarios;
             for (int x = 0; x < this.redSocial.Usuarios.Count; x++)
             {
@@ -61,11 +61,14 @@ namespace TP1_PlataformaDesarrollo
         private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             List<Usuario> usuarios = this.redSocial.Usuarios;
-            if (e.ColumnIndex == 9) // solo si selecciona la columna de agregar
+            if (e.ColumnIndex == 9) // solo si selecciona la columna de eliminar
             {
                 if (this.redSocial.EliminarUsuario(usuarios[e.RowIndex].Id))
                 {
                     MessageBox.Show("Usuario eliminado");
+                    this.redSocial.inicializarAtributos();
+                    dataGridView1.Rows.Clear();
+                    initializeDataGrids();
                 }
                 else
                 {
