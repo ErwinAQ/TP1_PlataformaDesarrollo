@@ -24,7 +24,7 @@ namespace TP1_PlataformaDesarrollo
             inicializarAtributos();
         }
 
-        private void inicializarAtributos()
+        public void inicializarAtributos()
         {
             Usuarios = DB.inicializarUsuarios();
         }
@@ -88,8 +88,9 @@ namespace TP1_PlataformaDesarrollo
 
         public bool EliminarUsuario(int idUser)
         {
+            bool resultEliminarRelAmigos = DB.eliminarRelacionesAmigos(idUser);
             bool resultEliminar = DB.eliminarUsuario(idUser);
-            if (resultEliminar)
+            if (resultEliminar && resultEliminarRelAmigos)
             {
                 return true;
             }
