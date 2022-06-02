@@ -280,7 +280,36 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
+
+        public bool eliminarUsuario(int idUser)
+
+        public bool eliminarRelacionesAmigos(int idUser) 
+        {
+            bool result = false;
+            string connectionString = Properties.Resources.ConnectionStr;
+            string queryString = "DELETE FROM [dbo].[usuarios_amigos] WHERE [usuario_id]=@userId or [amigo_id]=@userId;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@userId", SqlDbType.BigInt));
+                command.Parameters["@userId"].Value = idUser;
+                try
+                {
+                    connection.Open();
+                    command.ExecuteReader();
+                    connection.Close();
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                return result;
+            }
+        }
+
         public bool eliminarUsuario(int idUser) 
+
         {
             bool result = false;
             string connectionString = Properties.Resources.ConnectionStr;
