@@ -69,8 +69,9 @@
             // cerrarSesionToolStripMenuItem1
             // 
             this.cerrarSesionToolStripMenuItem1.Name = "cerrarSesionToolStripMenuItem1";
-            this.cerrarSesionToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.cerrarSesionToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.cerrarSesionToolStripMenuItem1.Text = "Cerrar sesion";
+            this.cerrarSesionToolStripMenuItem1.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem1_Click);
             // 
             // label1
             // 

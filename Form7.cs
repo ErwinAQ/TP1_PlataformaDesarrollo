@@ -12,6 +12,9 @@ namespace TP1_PlataformaDesarrollo
 {
     public partial class Form7 : Form
     {
+        public delegate void cerrarSesion();
+        public cerrarSesion volverAlLogin;
+
         public delegate void initializeForm();
         public initializeForm volverAtras;
 
@@ -48,8 +51,17 @@ namespace TP1_PlataformaDesarrollo
             if (this.ModificaUsuario(this.usuario.Id, this.textBox1.Text, this.textBox2.Text, this.textBox3.Text, this.textBox4.Text, this.checkBox1.Checked, int.Parse(this.textBox5.Text), this.checkBox2.Checked)) 
             {
                 MessageBox.Show("Modificado con éxito");
-            }else
+                this.Close();
+                this.volverAtras();
+            }
+            else
                 MessageBox.Show("No se pudo modificar el usuario");
+        }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.volverAlLogin();
         }
     }
 }

@@ -63,8 +63,6 @@ namespace TP1_PlataformaDesarrollo
             return misUsuarios;
         }
 
-
-
         public List<Usuario> inicializarUsuariosNoAmigos(int logedUserId)
         {
             List<Usuario> usuariosNoAmigos = new List<Usuario>();
@@ -191,7 +189,6 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
-
         public Usuario getUserFromDatabase(int userId)
         {
             Usuario user = new Usuario();
@@ -283,7 +280,7 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
-        public bool eliminarUsuario(int idUser)
+        public bool eliminarUsuario(int idUser) 
         {
             bool result = false;
             string connectionString = Properties.Resources.ConnectionStr;

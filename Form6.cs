@@ -14,6 +14,8 @@ namespace TP1_PlataformaDesarrollo
     {
         public delegate void opcElegida(int opcionElegida, int indexItemSeleccionado);
         public opcElegida seleccionarTabla;
+        public delegate void cerrarSesion();
+        public cerrarSesion volverAlLogin;
 
         private const int UPDATE_USUARIO = 1;
         private const int UPDATE_POSTS = 2;
@@ -61,11 +63,14 @@ namespace TP1_PlataformaDesarrollo
         private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             List<Usuario> usuarios = this.redSocial.Usuarios;
-            if (e.ColumnIndex == 9) // solo si selecciona la columna de agregar
+            if (e.ColumnIndex == 9) // solo si selecciona la columna de eliminar
             {
                 if (this.redSocial.EliminarUsuario(usuarios[e.RowIndex].Id))
                 {
                     MessageBox.Show("Usuario eliminado");
+                    this.redSocial.inicializarAtributos();
+                    dataGridView1.Rows.Clear();
+                    initializeDataGrids();
                 }
                 else
                 {
@@ -77,6 +82,12 @@ namespace TP1_PlataformaDesarrollo
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             this.seleccionarTabla(UPDATE_USUARIO, e.RowIndex);
+        }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.volverAlLogin();
         }
     }
 }
