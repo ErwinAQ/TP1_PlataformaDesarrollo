@@ -30,6 +30,7 @@ namespace TP1_PlataformaDesarrollo
         private void initializeDataGrids()
         {
             this.initializeDataGridUsuarios();
+            this.initializeDataGridPost();
         }
 
         public void initializeDataGridUsuarios()
@@ -53,7 +54,28 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
+        public void initializeDataGridPost()
+        {
+
+            //Console.Out.WriteLine("cantidad" + this.redSocial.Usuarios[4].Id);
+            List<Post> post = this.redSocial.Post;
+            for (int x = 0; x < this.redSocial.Post.Count; x++)
+            {
+                int n = this.dataGridView2.Rows.Add();
+                this.dataGridView2.Rows[n].Cells[0].Value = post[x].Id;
+                this.dataGridView2.Rows[n].Cells[1].Value = post[x].Usuario;
+                this.dataGridView2.Rows[n].Cells[2].Value = post[x].Contenido;
+                this.dataGridView2.Rows[n].Cells[3].Value = post[x].Fecha;
+               
+                this.dataGridView2.Rows[n].Cells[4].Value = "Eliminar";
+            }
+        }
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
@@ -76,10 +98,37 @@ namespace TP1_PlataformaDesarrollo
                 }
             }
         }
+        private void dataGridView2_CellClick_2(object sender, DataGridViewCellEventArgs e)
+        {
+            List<Post> post = this.redSocial.Post;
+            if (e.ColumnIndex == 4) // solo si selecciona la columna de eliminar
+            {
+                if (this.redSocial.EliminarUsuario(post[e.RowIndex].Id))
+                {
+                    MessageBox.Show("Post eliminado");
+                    this.redSocial.inicializarAtributos();
+                    dataGridView1.Rows.Clear();
+                    initializeDataGrids();
+                }
+                else
+                {
+                    MessageBox.Show("El post no se pudo eliminar");
+                }
+            }
+        }
+
+
+
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             this.seleccionarTabla(UPDATE_USUARIO, e.RowIndex);
+            this.seleccionarTabla(UPDATE_POSTS, e.RowIndex);
+        }
+
+        private void dataGridView2_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

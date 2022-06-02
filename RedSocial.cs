@@ -12,6 +12,9 @@ namespace TP1_PlataformaDesarrollo
     public class RedSocial
     {
         public List<Usuario> Usuarios { get; set; }
+
+        public List<Post> Post { get; set; }
+
         public List<Usuario> usuarioNoAmigos { get; set; }
 
         public Usuario logedUser;
@@ -20,6 +23,7 @@ namespace TP1_PlataformaDesarrollo
         public RedSocial()
         {
             Usuarios = new List<Usuario>();
+            Post = new List<Post>();
             DB = new DAL();
             inicializarAtributos();
         }
@@ -27,6 +31,7 @@ namespace TP1_PlataformaDesarrollo
         public void inicializarAtributos()
         {
             Usuarios = DB.inicializarUsuarios();
+            Post = DB.inicializarPost();
         }
 
         public bool agregarUsuario(string Nombre, string Apellido, string Dni, string Email, string Password, bool EsADM, int IntentosFallidos, bool Bloqueado)
@@ -47,6 +52,35 @@ namespace TP1_PlataformaDesarrollo
                     //Ahora sí lo agrego en la lista
                     Usuario nuevo = new Usuario(idNuevoUsuario, Nombre, Apellido, Dni, Email, Password, EsADM, IntentosFallidos, Bloqueado);
                     Usuarios.Add(nuevo);
+                    return true;
+                }
+                else
+                {
+                    //algo salió mal con la query porque no generó un id válido
+                    return false;
+                }
+            }
+            else
+                return false;
+        }
+        public bool agregarPost(Usuario Usuario, string Contenido)
+        {
+            //comprobación para que no me agreguen post con id duplicado
+            bool esValido = true;
+            foreach (Post u in Post)
+            {
+                if (u.Contenido == Contenido)
+                    esValido = false;
+            }
+            if (esValido)
+            {
+                int idNuevoPost;
+                idNuevoPost = DB.agregarPost(Usuario, Contenido);
+                if (idNuevoPost != -1)
+                {
+                    //Ahora sí lo agrego en la lista
+                    Post nuevo = new Post(idNuevoPost, Usuario, Contenido);
+                    Post.Add(nuevo);
                     return true;
                 }
                 else

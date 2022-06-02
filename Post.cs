@@ -15,19 +15,24 @@ namespace TP1_PlataformaDesarrollo
 
         public DateTime Fecha { get; set; }
 
-        public Post() { }
-        public Post(string contenido, DateTime fecha)
+        public Post() {
+
+            this.Usuario = new Usuario();
+
+
+
+
+        }
+        public Post(int id, Usuario usuario,string contenido  )
         {
             Contenido = contenido;
-            Fecha = fecha;
+            
+            Usuario = usuario;  
+
         }
 
         public Usuario Usuario { get; set; }
 
-        public List<Comentario> Comentarios { get; set; }
-
-        public List<Reaccion> Reacciones { get; set; }
-
-        public List<Tag> Tags { get; set; }
+      
     }
 }
