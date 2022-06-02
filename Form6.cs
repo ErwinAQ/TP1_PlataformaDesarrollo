@@ -35,7 +35,7 @@ namespace TP1_PlataformaDesarrollo
         public void initializeDataGridUsuarios()
         {
 
-            Console.Out.WriteLine("cantidad" + this.redSocial.Usuarios[4].Id);
+            //Console.Out.WriteLine("cantidad" + this.redSocial.Usuarios[4].Id);
             List<Usuario> usuarios = this.redSocial.Usuarios;
             for (int x = 0; x < this.redSocial.Usuarios.Count; x++)
             {

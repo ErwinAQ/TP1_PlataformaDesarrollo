@@ -283,7 +283,7 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
-        public bool eliminarUsuario(int idUser) 
+        public bool eliminarUsuario(int idUser)
         {
             bool result = false;
             string connectionString = Properties.Resources.ConnectionStr;
@@ -400,43 +400,54 @@ namespace TP1_PlataformaDesarrollo
             }
         }
         //comentar despues
-        /* public List<Post> inicializarPost(int logedUserId)
-         {
-             List<Post> crearPost = new List<Post>();
+        public List<Post> inicializarPost(int id, int id_usuario, string contenido, DateTime created_at)
+        {
+            List<Post> crearPost = new List<Post>();
 
-             //Defino el string pero FALTA CREAR POST
-             string queryString = "INSERT INTO [dbo].[post] ([post_id][fecha],[contenido]) VALUES(@fecha,@contenido,@post_id)"; //verificar post id, paso intermedio para idusuario
+            //Defino el string pero FALTA CREAR POST
+            int resultadoQuery;
+            int idNuevoPost = -1;
+            string connectionString = Properties.Resources.ConnectionStr;
+            string queryString = "INSERT INTO [dbo].[posts] ([id],[id_usuario],[contenido],[created_at]) VALUES(@id,@id_usuario,@contenido,@created_at)"; //verificar post id, paso intermedio para idusuario
+            using (SqlConnection connection =
+                new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@id", SqlDbType.BigInt));
+                command.Parameters.Add(new SqlParameter("@usuario_id", SqlDbType.BigInt));
+                command.Parameters.Add(new SqlParameter("@contenido", SqlDbType.Text));
+                command.Parameters.Add(new SqlParameter("@created_at", SqlDbType.DateTime));
+                command.Parameters["@id"].Value = id;
+                command.Parameters["@usuario_id"].Value = id_usuario;
+                command.Parameters["@contenido"].Value = contenido;
+                command.Parameters["@created_at"].Value = created_at;
 
+                //Verificar
+                try
+                {
+                    connection.Open();
+                    //esta consulta NO espera un resultado para leer, es del tipo NON Query
+                    resultadoQuery = command.ExecuteNonQuery();
 
-             command.Parameters.Add(new SqlParameter("@post_id", SqlDbType.Int));
-             command.Parameters.Add(new SqlParameter("@fecha", SqlDbType.Date));
-             command.Parameters.Add(new SqlParameter("@contenido", SqlDbType.NVarChar));
-             command.Parameters["@post_id"].Value = Post_id;
-             command.Parameters["@fecha"].Value = Fecha;
-             command.Parameters["@contenido"].Value = Contenido; //Verificar
-             try
-             {
-                 connection.Open();
-                 //esta consulta NO espera un resultado para leer, es del tipo NON Query
-                 resultadoQuery = command.ExecuteNonQuery();
-
-                 //***************
-                 //Ahora hago esta query para obtener el ID
-                 string ConsultaID = "SELECT MAX([post_id]) FROM [dbo].[post]";
-                 command = new SqlCommand(ConsultaID, connection);
-                 SqlDataReader reader = command.ExecuteReader();
-                 reader.Read();
-                 idNuevoUsuario = Convert.ToInt32(reader[0]);
-                 reader.Close();
-             }
-             catch (Exception ex)
-             {
-                 Console.WriteLine("Error al insertar: " + ex.Message);
-                 return -1;
-             }
-             return idNuevoPost;
-         } */
-
+                    //***************
+                    //Ahora hago esta query para obtener el ID
+                    string ConsultaID = "SELECT MAX([id]) FROM [dbo].[posts]";
+                    command = new SqlCommand(ConsultaID, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    idNuevoPost = Convert.ToInt32(reader[0]);
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al insertar: " + ex.Message);
+                    return -1;
+                }
+                return idNuevoPost;
+            
+            }
+        }
+    }
         /*public int eliminarPost(int Post_id) //varchar o int a la hora de crear el post
         {
             string connectionString = Properties.Resources.ConnectionStr;
@@ -491,5 +502,5 @@ namespace TP1_PlataformaDesarrollo
             }
         }*/
 
-    }
+    
 }

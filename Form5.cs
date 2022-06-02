@@ -87,5 +87,27 @@ namespace TP1_PlataformaDesarrollo
                 }
             }
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridAmigosActuales_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string contenido = richTextBox1.Text;
+            //lblHora.Text = DateTime.Now.ToString("hh:mm:ss");
+            //lblFecha.Text = DateTime.Now.ToLongDateString();
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
