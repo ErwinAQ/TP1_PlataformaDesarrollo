@@ -12,6 +12,9 @@ namespace TP1_PlataformaDesarrollo
 {
     public partial class Form7 : Form
     {
+        public delegate void cerrarSesion();
+        public cerrarSesion volverAlLogin;
+
         public delegate void initializeForm();
         public initializeForm volverAtras;
 
@@ -53,6 +56,12 @@ namespace TP1_PlataformaDesarrollo
             }
             else
                 MessageBox.Show("No se pudo modificar el usuario");
+        }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.volverAlLogin();
         }
     }
 }

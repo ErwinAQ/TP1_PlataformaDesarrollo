@@ -12,6 +12,9 @@ namespace TP1_PlataformaDesarrollo
 {
     public partial class Form5 : Form
     {
+        public delegate void cerrarSesion();
+        public cerrarSesion volverAlLogin;
+
         private RedSocial redSocial;
         public Form5(RedSocial redSocial)
         {
@@ -86,6 +89,12 @@ namespace TP1_PlataformaDesarrollo
                     MessageBox.Show("El usuario no se pudo eliminar");
                 }
             }
+        }
+
+        private void cerrarSesionToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.volverAlLogin();
         }
     }
 }

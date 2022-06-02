@@ -63,8 +63,6 @@ namespace TP1_PlataformaDesarrollo
             return misUsuarios;
         }
 
-
-
         public List<Usuario> inicializarUsuariosNoAmigos(int logedUserId)
         {
             List<Usuario> usuariosNoAmigos = new List<Usuario>();
@@ -190,7 +188,6 @@ namespace TP1_PlataformaDesarrollo
                 }
             }
         }
-
 
         public Usuario getUserFromDatabase(int userId)
         {
