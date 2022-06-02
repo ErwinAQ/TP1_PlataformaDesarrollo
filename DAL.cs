@@ -425,9 +425,11 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
+        
         public List<Post> inicializarPost()
         {
             List<Post> misPost = new List<Post>();
+            
 
             //Defino el string con la consulta que quiero realizar
             string queryString = "SELECT * FROM [dbo].[posts] WHERE [id] != 0;";
@@ -476,7 +478,7 @@ namespace TP1_PlataformaDesarrollo
             int resultadoQuery;
             int idNuevoPost = -1;
             string connectionString = Properties.Resources.ConnectionStr;
-            string queryString = "INSERT INTO [dbo].[post] ([usuario_id],[contenido]) VALUES (@usuario,@contenido);";
+            string queryString = "INSERT INTO [dbo].[posts] ([usuario_id],[contenido]) VALUES (@usuario,@contenido);";
             using (SqlConnection connection =
                 new SqlConnection(connectionString))
             {
@@ -493,7 +495,7 @@ namespace TP1_PlataformaDesarrollo
 
                     //*******************************************
                     //Ahora hago esta query para obtener el ID
-                    string ConsultaID = "SELECT MAX([id]) FROM [dbo].[post]";
+                    string ConsultaID = "SELECT MAX([id]) FROM [dbo].[posts]";
                     command = new SqlCommand(ConsultaID, connection);
                     SqlDataReader reader = command.ExecuteReader();
                     reader.Read();

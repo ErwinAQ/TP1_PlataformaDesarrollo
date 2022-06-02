@@ -15,10 +15,13 @@ namespace TP1_PlataformaDesarrollo
 
         public DateTime Fecha { get; set; }
 
+        
+
         public Post() {
 
             this.Usuario = new Usuario();
-
+            
+            
 
 
 

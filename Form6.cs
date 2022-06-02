@@ -56,16 +56,16 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
-        public void initializeDataGridPost()
+        public void initializeDataGridPost(Usuario usuarios)
         {
-
+            
             //Console.Out.WriteLine("cantidad" + this.redSocial.Usuarios[4].Id);
             List<Post> post = this.redSocial.Post;
             for (int x = 0; x < this.redSocial.Post.Count; x++)
             {
                 int n = this.dataGridView2.Rows.Add();
                 this.dataGridView2.Rows[n].Cells[0].Value = post[x].Id;
-                this.dataGridView2.Rows[n].Cells[1].Value = post[x].Usuario;
+                this.dataGridView2.Rows[n].Cells[1].Value = post[x].Usuario.Id;
                 this.dataGridView2.Rows[n].Cells[2].Value = post[x].Contenido;
                 this.dataGridView2.Rows[n].Cells[3].Value = post[x].Fecha;
                

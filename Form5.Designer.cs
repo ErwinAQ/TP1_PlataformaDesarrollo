@@ -95,7 +95,7 @@
             this.dataGridAmigosActuales.Size = new System.Drawing.Size(247, 116);
             this.dataGridAmigosActuales.TabIndex = 2;
             this.dataGridAmigosActuales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridAmigosActuales_CellClick);
-            this.dataGridAmigosActuales.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridAmigosActuales_CellContentClick);
+            
             // 
             // nameColumn
             // 
@@ -160,7 +160,7 @@
             this.richTextBox1.Size = new System.Drawing.Size(181, 108);
             this.richTextBox1.TabIndex = 6;
             this.richTextBox1.Text = "";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            
             // 
             // button1
             // 
@@ -170,7 +170,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "Enviar";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            
             // 
             // label3
             // 
@@ -180,7 +180,7 @@
             this.label3.Size = new System.Drawing.Size(125, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "En que estas pensando?";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
+       
             // 
             // Form5
             // 
