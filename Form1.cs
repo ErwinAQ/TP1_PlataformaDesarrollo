@@ -69,6 +69,7 @@ namespace TP1_PlataformaDesarrollo
                 InicioAdminLogueado = new Form6(this.redSocial);
                 InicioAdminLogueado.MdiParent = this;
                 InicioAdminLogueado.seleccionarTabla += seleccionarTabla;
+                InicioAdminLogueado.volverAlLogin += cerrarSesion;
                 InicioAdminLogueado.Show();
             }
             else
@@ -76,6 +77,7 @@ namespace TP1_PlataformaDesarrollo
                 MessageBox.Show("Bienvenido al red social ");
                 InicioUserLogueado = new Form5(this.redSocial);
                 InicioUserLogueado.MdiParent = this;
+                InicioUserLogueado.volverAlLogin += cerrarSesion;
                 InicioUserLogueado.Show();
             }
         }
@@ -117,6 +119,7 @@ namespace TP1_PlataformaDesarrollo
             UpdateUsuario.MdiParent = this;
             UpdateUsuario.ModificaUsuario += modificarUsuario;
             UpdateUsuario.volverAtras += logHandler;
+            UpdateUsuario.volverAlLogin += cerrarSesion;
             UpdateUsuario.Show();
         }
 
@@ -128,5 +131,12 @@ namespace TP1_PlataformaDesarrollo
             }
             return false;
         }
+
+        private void cerrarSesion() 
+        {
+            this.redSocial.CerrarSesion();
+            this.initializeForm2();
+        }
+
     }
 }

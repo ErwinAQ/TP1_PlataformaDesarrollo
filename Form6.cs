@@ -14,6 +14,8 @@ namespace TP1_PlataformaDesarrollo
     {
         public delegate void opcElegida(int opcionElegida, int indexItemSeleccionado);
         public opcElegida seleccionarTabla;
+        public delegate void cerrarSesion();
+        public cerrarSesion volverAlLogin;
 
         private const int UPDATE_USUARIO = 1;
         private const int UPDATE_POSTS = 2;
@@ -129,6 +131,12 @@ namespace TP1_PlataformaDesarrollo
         private void dataGridView2_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.volverAlLogin();
         }
     }
 }

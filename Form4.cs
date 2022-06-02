@@ -60,5 +60,10 @@ namespace TP1_PlataformaDesarrollo
         {
 
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -61,7 +61,7 @@ namespace TP1_PlataformaDesarrollo.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Data Source=.;Initial Catalog=redSocial;Integrated Security=True.
+        ///   Busca una cadena traducida similar a Data Source=DESKTOP-ILFJLDO\SQLEXPRESS;Initial Catalog=red_social;Integrated Security=True.
         /// </summary>
         internal static string ConnectionStr {
             get {
