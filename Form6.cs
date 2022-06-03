@@ -68,7 +68,11 @@ namespace TP1_PlataformaDesarrollo
                 this.dataGridView2.Rows[n].Cells[1].Value = post[x].Usuario.Id;
                 this.dataGridView2.Rows[n].Cells[2].Value = post[x].Contenido;
                 this.dataGridView2.Rows[n].Cells[3].Value = post[x].Fecha;
-                this.dataGridView2.Rows[n].Cells[4].Value = "Eliminar";
+                this.dataGridView2.Rows[n].Cells[4].Value = post[x].Comentario.Id;
+                this.dataGridView2.Rows[n].Cells[5].Value = post[x].Reaccion.Id;
+                this.dataGridView2.Rows[n].Cells[6].Value = post[x].Tag.Id;
+                
+                this.dataGridView2.Rows[n].Cells[7].Value = "Eliminar";
             }
         }
 
@@ -102,7 +106,7 @@ namespace TP1_PlataformaDesarrollo
         private void dataGridView2_CellClick_2(object sender, DataGridViewCellEventArgs e)
         {
             List<Post> post = this.redSocial.Post;
-            if (e.ColumnIndex == 4) // solo si selecciona la columna de eliminar
+            if (e.ColumnIndex == 7) // solo si selecciona la columna de eliminar
             {
                 if (this.redSocial.EliminarUsuario(post[e.RowIndex].Id))
                 {

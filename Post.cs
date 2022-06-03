@@ -20,6 +20,9 @@ namespace TP1_PlataformaDesarrollo
         public Post() {
 
             this.Usuario = new Usuario();
+            this.Comentario = new Comentario();
+            this.Reaccion = new Reaccion();
+            this.Tag = new Tag();
 
         }
         public Post(int id, Usuario usuario,string contenido  )
@@ -31,6 +34,12 @@ namespace TP1_PlataformaDesarrollo
         }
 
         public Usuario Usuario { get; set; }
+
+        public Comentario Comentario { get; set; } 
+
+        public Reaccion Reaccion { get; set; }
+
+        public Tag Tag { get; set; }
 
       
     }

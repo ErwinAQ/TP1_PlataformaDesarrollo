@@ -15,6 +15,10 @@ namespace TP1_PlataformaDesarrollo
 
         public List<Post> Post { get; set; }
 
+        public List<Comentario> Comentario { get; set; }
+        public List<Reaccion> Reaccion { get; set; }
+        public List<Tag> Tag { get; set; }
+
         public List<Usuario> usuarioNoAmigos { get; set; }
 
         public Usuario logedUser;
@@ -24,6 +28,12 @@ namespace TP1_PlataformaDesarrollo
         {
             Usuarios = new List<Usuario>();
             Post = new List<Post>();
+            Comentario = new List<Comentario>();
+            Reaccion = new List<Reaccion>();
+            Tag = new List<Tag>();
+
+
+
             DB = new DAL();
             inicializarAtributos();
         }
