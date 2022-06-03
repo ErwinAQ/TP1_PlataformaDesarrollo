@@ -63,5 +63,10 @@ namespace TP1_PlataformaDesarrollo
             this.Close();
             this.volverAlLogin();
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,9 +44,15 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Posts = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.redSocialBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAmigosActuales)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNoAmigos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.redSocialBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -69,7 +76,7 @@
             // cerrarSesionToolStripMenuItem1
             // 
             this.cerrarSesionToolStripMenuItem1.Name = "cerrarSesionToolStripMenuItem1";
-            this.cerrarSesionToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.cerrarSesionToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
             this.cerrarSesionToolStripMenuItem1.Text = "Cerrar sesion";
             this.cerrarSesionToolStripMenuItem1.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem1_Click);
             // 
@@ -95,7 +102,6 @@
             this.dataGridAmigosActuales.Size = new System.Drawing.Size(247, 116);
             this.dataGridAmigosActuales.TabIndex = 2;
             this.dataGridAmigosActuales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridAmigosActuales_CellClick);
-            
             // 
             // nameColumn
             // 
@@ -160,7 +166,6 @@
             this.richTextBox1.Size = new System.Drawing.Size(181, 108);
             this.richTextBox1.TabIndex = 6;
             this.richTextBox1.Text = "";
-            
             // 
             // button1
             // 
@@ -170,7 +175,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "Enviar";
             this.button1.UseVisualStyleBackColor = true;
-            
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label3
             // 
@@ -180,13 +185,40 @@
             this.label3.Size = new System.Drawing.Size(125, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "En que estas pensando?";
-       
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Posts,
+            this.Column2});
+            this.dataGridView1.Location = new System.Drawing.Point(305, 244);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(240, 177);
+            this.dataGridView1.TabIndex = 9;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // Posts
+            // 
+            this.Posts.HeaderText = "Post de mis amigos";
+            this.Posts.Name = "Posts";
+            // 
+            // redSocialBindingSource
+            // 
+            this.redSocialBindingSource.DataSource = typeof(TP1_PlataformaDesarrollo.RedSocial);
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "";
+            this.Column2.Name = "Column2";
             // 
             // Form5
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.richTextBox1);
@@ -205,6 +237,8 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAmigosActuales)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNoAmigos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.redSocialBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,5 +261,9 @@
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Posts;
+        private System.Windows.Forms.BindingSource redSocialBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
     }
 }
