@@ -73,7 +73,7 @@ namespace TP1_PlataformaDesarrollo
             else
                 return false;
         }
-        public bool agregarPost(Usuario Usuario, string Contenido)
+        /*public bool agregarPost(Usuario Usuario, string Contenido)
         {
             //comprobación para que no me agreguen post con id duplicado
             bool esValido = true;
@@ -101,7 +101,7 @@ namespace TP1_PlataformaDesarrollo
             }
             else
                 return false;
-        }
+        }*/
 
         public bool IniciarSesion(string Dni, string Password)
         {
@@ -119,6 +119,8 @@ namespace TP1_PlataformaDesarrollo
                 {
                     this.logedUser.Amigos = DB.obtenerAmigos(userId);
                     this.usuarioNoAmigos = DB.inicializarUsuariosNoAmigos(userId);
+                    this.Post = DB.obtenerPostAmigos(userId);
+                    Console.Out.WriteLine(this.Post[0].Contenido);
                 }
             }
 
@@ -230,13 +232,14 @@ namespace TP1_PlataformaDesarrollo
                 return false;
             }
         }
-        public void Postear(in Post Postt, in List<Tag>Tags)
+        public void Postear(in Post Postt)
         {
+            //in List<Tag>Tags
             /*Agrega el Post p a la lista de posts, agrega el post a la lista del
             usuario UsuarioActual. Revisa los tags, si no están en la lista de tags los agrega, luego para cada
             tag agrega el post p a su lista de posts y agrega los tags en t a la lista de tags del post p.*/
-            
-            logedUser.MisPost.Add(Postt);
+            DB.agregarPost(Postt);
+            //logedUser.MisPost.Add(Postt);
         }
         public void ModificarPost(in Post Post)
         {
@@ -282,11 +285,13 @@ namespace TP1_PlataformaDesarrollo
         public void MostrarPost()
         {
             //Muestra los posts del usuario UsuarioActual. Devuelve una lista de posts.
+
         }
         public void MostrarPostAmigos()
         {
             //Muestra los posts de los amigos del usuario UsuarioActual. Devuelve
             //una lista de posts.
+            //this.logedUser.Amigos = DB.obtenerPostAmigos(userId);
         }
         public void BuscarPost(in string Contenido, in DateTime FechaDesde, in DateTime FechaHasta, in Tag tags)
         {

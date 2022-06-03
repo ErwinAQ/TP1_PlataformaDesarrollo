@@ -477,21 +477,30 @@ namespace TP1_PlataformaDesarrollo
             return misPost;
         }
 
-        public int agregarPost(Usuario usuario, string contenido)
+        //public int obtenerPostAmigo(Usuario amigo, string contenido)
+       //{
+
+        //}
+
+        public int agregarPost(Post postt)
         {
             //primero me aseguro que lo pueda agregar a la base
             int resultadoQuery;
             int idNuevoPost = -1;
             string connectionString = Properties.Resources.ConnectionStr;
-            string queryString = "INSERT INTO [dbo].[posts] ([usuario_id],[contenido]) VALUES (@usuario,@contenido);";
+            string queryString = "INSERT INTO [dbo].[posts] ([usuario_id],[contenido],[created_at]) VALUES (@usuario,@contenido,@fecha);";
             using (SqlConnection connection =
                 new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.Parameters.Add(new SqlParameter("@usuario", SqlDbType.NVarChar));
                 command.Parameters.Add(new SqlParameter("@contenido", SqlDbType.NVarChar));
-        
-              
+                command.Parameters.Add(new SqlParameter("@fecha", SqlDbType.DateTime));
+                command.Parameters["@usuario"].Value = postt.Usuario.Id;
+                command.Parameters["@contenido"].Value = postt.Contenido;
+                command.Parameters["@fecha"].Value = postt.Fecha;
+
+
                 try
                 {
                     connection.Open();
@@ -515,6 +524,50 @@ namespace TP1_PlataformaDesarrollo
                 return idNuevoPost;
             }
         }
+
+        public List<Post> obtenerPostAmigos(int logedUserId)
+        {
+            List<Post> postAmigos = new List<Post>();
+
+            //Defino el string con la consulta que quiero realizar
+            string queryString = "SELECT * FROM [dbo].[posts] WHERE [usuario_id] " +
+                "IN (SELECT amigo_id from [dbo].[usuarios_amigos] WHERE [usuario_id] = @logedUserId);";
+
+            // Creo una conexión SQL con un Using, de modo que al finalizar, la conexión se cierra y se liberan recursos
+            using (SqlConnection connection =
+                new SqlConnection(connectionString))
+            {
+                // Defino el comando a enviar al motor SQL con la consulta y la conexión
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@logedUserId", SqlDbType.BigInt));
+                command.Parameters["@logedUserId"].Value = logedUserId;
+                try
+                {
+                    //Abro la conexión
+                    connection.Open();
+                    //mi objecto DataReader va a obtener los resultados de la consulta, notar que a comando se le pide ExecuteReader()
+                    SqlDataReader reader = command.ExecuteReader();
+                    //mientras haya registros/filas en mi DataReader, sigo leyendo
+                    while (reader.Read())
+                    {
+                        Post amigoPost = new Post();
+                        amigoPost.Id = Convert.ToInt32(reader[0]);
+                        amigoPost.Usuario = this.getUserFromDatabase(Convert.ToInt32(reader[1]));
+                        amigoPost.Contenido = Convert.ToString(reader[2]);
+                        amigoPost.Fecha = Convert.ToDateTime(reader[3]);   
+                        //aux = new Usuario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetInt32(7), reader.GetBoolean(8));
+                        postAmigos.Add(amigoPost);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return postAmigos;
+        }
+
 
 
         /*public int eliminarPost(int Post_id) //varchar o int a la hora de crear el post
