@@ -123,7 +123,7 @@ namespace TP1_PlataformaDesarrollo
                     Console.Out.WriteLine(this.Post[0].Contenido);
                 }
             }
-
+            //Escrito para hacer el push , borrar despues.
             bool resultLogin = userId != -1;
             return resultLogin;
         }
