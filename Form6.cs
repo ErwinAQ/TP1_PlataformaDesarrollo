@@ -53,6 +53,7 @@ namespace TP1_PlataformaDesarrollo
                 this.dataGridView1.Rows[n].Cells[7].Value = usuarios[x].IntentosFallidos;
                 this.dataGridView1.Rows[n].Cells[8].Value = usuarios[x].Bloqueado;
                 this.dataGridView1.Rows[n].Cells[9].Value = "Eliminar";
+                this.dataGridView1.Rows[n].Cells[10].Value = "Modificar";
             }
         }
 
@@ -72,15 +73,6 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             List<Usuario> usuarios = this.redSocial.Usuarios;
@@ -97,6 +89,10 @@ namespace TP1_PlataformaDesarrollo
                 {
                     MessageBox.Show("El usuario no se pudo eliminar");
                 }
+            }
+            if (e.ColumnIndex == 10) 
+            {
+                this.seleccionarTabla(UPDATE_USUARIO, e.RowIndex);
             }
         }
         private void dataGridView2_CellClick_2(object sender, DataGridViewCellEventArgs e)
@@ -118,19 +114,6 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
-
-
-
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            this.seleccionarTabla(UPDATE_USUARIO, e.RowIndex);
-            this.seleccionarTabla(UPDATE_POSTS, e.RowIndex);
-        }
-
-        private void dataGridView2_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
         {
