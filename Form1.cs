@@ -102,7 +102,7 @@ namespace TP1_PlataformaDesarrollo
             switch (opcionElegida)
             {
                 case 1:
-                    //ABMproductos = new Form8(); // Pasar arr list de productos
+                    // = modificarUsuarioSeleccionado
                     initializeForm7(this.redSocial.Usuarios[indexItemSeleccionado]);
                     break;
                 case 2:

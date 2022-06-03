@@ -20,10 +20,6 @@ namespace TP1_PlataformaDesarrollo
         public Post() {
 
             this.Usuario = new Usuario();
-            
-            
-
-
 
         }
         public Post(int id, Usuario usuario,string contenido  )

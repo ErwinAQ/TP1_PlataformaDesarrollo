@@ -103,6 +103,7 @@ namespace TP1_PlataformaDesarrollo
                 if (this.logedUser.EsADM)
                 {
                     this.Usuarios = DB.inicializarUsuarios();
+                    this.Post = DB.inicializarPost();
                 }
                 else
                 {

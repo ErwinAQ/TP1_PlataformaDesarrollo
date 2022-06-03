@@ -24,6 +24,7 @@ namespace TP1_PlataformaDesarrollo
             //Defino el string con la consulta que quiero realizar
             string queryString = "SELECT * FROM [dbo].[usuarios] WHERE [es_admin] != 1;";
 
+            
             // Creo una conexión SQL con un Using, de modo que al finalizar, la conexión se cierra y se liberan recursos
             using (SqlConnection connection =
                 new SqlConnection(connectionString))
@@ -39,6 +40,7 @@ namespace TP1_PlataformaDesarrollo
                     //mientras haya registros/filas en mi DataReader, sigo leyendo
                     while (reader.Read())
                     {
+                        
                         Usuario user = new Usuario();
                         user.Id = Convert.ToInt32(reader[0]);
                         user.Nombre = Convert.ToString(reader[1]);
@@ -432,7 +434,7 @@ namespace TP1_PlataformaDesarrollo
             
 
             //Defino el string con la consulta que quiero realizar
-            string queryString = "SELECT * FROM [dbo].[posts] WHERE [id] != 0;";
+            string queryString = "SELECT * FROM [dbo].[posts];";
 
             // Creo una conexión SQL con un Using, de modo que al finalizar, la conexión se cierra y se liberan recursos
             using (SqlConnection connection =
@@ -449,15 +451,13 @@ namespace TP1_PlataformaDesarrollo
                     //mientras haya registros/filas en mi DataReader, sigo leyendo
                     while (reader.Read())
                     {
+                        //Console.Out.WriteLine("cantidad: " + misPost.Count());
                         Post post = new Post();
                         post.Id = Convert.ToInt32(reader[0]);
                         post.Usuario.Id = Convert.ToInt32(reader[1]);
-
-
                         post.Contenido = Convert.ToString(reader[2]);
                         post.Fecha = Convert.ToDateTime(reader[3]);
-                        
-                        
+                        misPost.Add(post);
                         
                     }
                     //En este punto ya recorrí todas las filas del resultado de la query
