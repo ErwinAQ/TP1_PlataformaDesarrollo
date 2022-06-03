@@ -336,6 +336,7 @@ namespace TP1_PlataformaDesarrollo
 
         }
 
+
         //devuelve el ID del usuario agregado a la base, si algo falla devuelve -1
         public int agregarUsuario(string Nombre, string Apellido, string Dni, string Email, string Password, bool EsADM, int IntentosFallidos, bool Bloqueado)
         {
@@ -568,6 +569,31 @@ namespace TP1_PlataformaDesarrollo
             return postAmigos;
         }
 
+        public bool eliminarPost(int idPost)
+        {
+            bool result = false;
+            string connectionString = Properties.Resources.ConnectionStr;
+            string queryString = "DELETE FROM [dbo].[posts] WHERE [id]=@idPost;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@userId", SqlDbType.BigInt));
+                command.Parameters["@userId"].Value = idPost;
+                try
+                {
+                    connection.Open();
+                    command.ExecuteReader();
+                    connection.Close();
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                return result;
+            }
+
+        }
 
 
         /*public int eliminarPost(int Post_id) //varchar o int a la hora de crear el post

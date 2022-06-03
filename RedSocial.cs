@@ -249,9 +249,18 @@ namespace TP1_PlataformaDesarrollo
             }
             //Idem modificar usuario pero con datos de post.
         }
-        public void EliminarPost(in Post post)
+        public bool eliminarPost(int idPost)
         {
-            //Elimina comentarios y reacciones asociadas a p, luego elimina el post.
+
+            bool resultEliminar = DB.eliminarPost(idPost);
+            if (resultEliminar)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public void Comentar(in Post post, in Comentario comentario)
         {
