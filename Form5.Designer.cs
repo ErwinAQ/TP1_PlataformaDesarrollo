@@ -43,9 +43,11 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAmigosActuales)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNoAmigos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -69,7 +71,7 @@
             // cerrarSesionToolStripMenuItem1
             // 
             this.cerrarSesionToolStripMenuItem1.Name = "cerrarSesionToolStripMenuItem1";
-            this.cerrarSesionToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.cerrarSesionToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
             this.cerrarSesionToolStripMenuItem1.Text = "Cerrar sesion";
             this.cerrarSesionToolStripMenuItem1.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem1_Click);
             // 
@@ -95,7 +97,6 @@
             this.dataGridAmigosActuales.Size = new System.Drawing.Size(247, 116);
             this.dataGridAmigosActuales.TabIndex = 2;
             this.dataGridAmigosActuales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridAmigosActuales_CellClick);
-            
             // 
             // nameColumn
             // 
@@ -155,38 +156,45 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(305, 81);
+            this.richTextBox1.Location = new System.Drawing.Point(294, 56);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(181, 108);
+            this.richTextBox1.Size = new System.Drawing.Size(192, 54);
             this.richTextBox1.TabIndex = 6;
             this.richTextBox1.Text = "";
-            
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(492, 109);
+            this.button1.Location = new System.Drawing.Point(492, 74);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(73, 23);
             this.button1.TabIndex = 7;
             this.button1.Text = "Enviar";
             this.button1.UseVisualStyleBackColor = true;
-            
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(302, 65);
+            this.label3.Location = new System.Drawing.Point(302, 40);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(125, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "En que estas pensando?";
-       
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(294, 116);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(422, 255);
+            this.dataGridView1.TabIndex = 9;
             // 
             // Form5
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.richTextBox1);
@@ -205,6 +213,7 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAmigosActuales)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNoAmigos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,5 +236,6 @@
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

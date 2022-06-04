@@ -95,8 +95,8 @@ namespace TP1_PlataformaDesarrollo
             this.Close();
             this.volverAlLogin();
         }
-    }
-     private void button1_Click(object sender, EventArgs e)
+
+        private void button1_Click(object sender, EventArgs e)
         {
             Post post = new Post();
             post.Contenido = this.richTextBox1.Text;
@@ -104,16 +104,5 @@ namespace TP1_PlataformaDesarrollo
             post.Fecha = DateTime.Now;
             this.redSocial.Postear(post);
         }
-
-     private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            List<Usuario> amigos = this.redSocial.logedUser.Amigos;
-            List<Post> amigosPost = this.redSocial.Post;
-            for (int x = 0; x < amigos.Count; x++)
-            {
-                int n = this.dataGridView1.Rows.Add();
-                this.dataGridAmigosActuales.Rows[n].Cells[0].Value = amigos[x].Nombre + " " + amigos[x].Apellido;
-                this.dataGridAmigosActuales.Rows[n].Cells[1].Value = "Eliminar";
-            }
-        }
+    }
 }

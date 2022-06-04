@@ -120,7 +120,6 @@ namespace TP1_PlataformaDesarrollo
                     this.logedUser.Amigos = DB.obtenerAmigos(userId);
                     this.usuarioNoAmigos = DB.inicializarUsuariosNoAmigos(userId);
                     this.Post = DB.obtenerPostAmigos(userId);
-                    Console.Out.WriteLine(this.Post[0].Contenido);
                 }
             }
             //Escrito para hacer el push , borrar despues.
