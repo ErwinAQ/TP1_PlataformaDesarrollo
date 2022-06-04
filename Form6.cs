@@ -19,7 +19,6 @@ namespace TP1_PlataformaDesarrollo
 
         private const int UPDATE_USUARIO = 1;
         private const int UPDATE_POSTS = 2;
-        private const int UPDATE_TAGS = 3;
 
         private RedSocial redSocial;
         public Form6(RedSocial redSocial)
@@ -33,6 +32,7 @@ namespace TP1_PlataformaDesarrollo
         {
             this.initializeDataGridUsuarios();
             this.initializeDataGridPost();
+            this.initializeDataGridTags();
         }
 
         public void initializeDataGridUsuarios()
@@ -76,6 +76,20 @@ namespace TP1_PlataformaDesarrollo
 
             }
         }
+
+        public void initializeDataGridTags()
+        {
+            List<Tag> tag = this.redSocial.Tags;
+            List<Post> post = this.redSocial.Post;
+            for (int x = 0; x < this.redSocial.Tags.Count; x++)
+            {
+                int n = this.dataGridView3.Rows.Add();
+                this.dataGridView3.Rows[n].Cells[0].Value = tag[x].Id;
+                this.dataGridView3.Rows[n].Cells[1].Value = tag[x].Palabra;
+                this.dataGridView3.Rows[n].Cells[2].Value = "Eliminar";
+            }
+        }
+
         private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             List<Usuario> usuarios = this.redSocial.Usuarios;
