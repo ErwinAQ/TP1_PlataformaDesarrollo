@@ -130,7 +130,7 @@ namespace TP1_PlataformaDesarrollo
                     MessageBox.Show("El post no se pudo eliminar");
                 }
             }
-            if (e.ColumnIndex == 4) 
+            if (e.ColumnIndex == 5) 
             {
                 this.seleccionarTabla(UPDATE_POSTS, e.RowIndex);
             }

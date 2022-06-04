@@ -251,13 +251,30 @@ namespace TP1_PlataformaDesarrollo
             return result;
             //logedUser.MisPost.Add(Postt);
         }
-        public void ModificarPost(in Post Post)
+        public bool ModificarPost(int Id, string Contenido)
         {
-            if (Post is null)
+            if (DB.modificarPost(Id, Contenido) == 1)
             {
-                throw new ArgumentNullException(nameof(Post));
+                try
+                {
+                    //Ahora sí lo MODIFICO en la lista
+                    for (int i = 0; i < Post.Count; i++)
+                        if (Post[i].Id == Id)
+                        {
+                            Post[i].Contenido = Contenido;
+                        }
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
-            //Idem modificar usuario pero con datos de post.
+            else
+            {
+                //algo salió mal con la query porque no generó 1 registro
+                return false;
+            }
         }
         public bool eliminarPost(int idPost)
         {

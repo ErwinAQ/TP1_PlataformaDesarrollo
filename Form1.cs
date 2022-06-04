@@ -20,6 +20,7 @@ namespace TP1_PlataformaDesarrollo
         Form5 InicioUserLogueado;
         Form6 InicioAdminLogueado;
         Form7 UpdateUsuario;
+        Form8 UpdatePost;
 
         //Variables auxiliares
         RedSocial redSocial;
@@ -106,7 +107,7 @@ namespace TP1_PlataformaDesarrollo
                     initializeForm7(this.redSocial.Usuarios[indexItemSeleccionado]);
                     break;
                 case 2:
-
+                    initializeForm8(this.redSocial.Post[indexItemSeleccionado]);
                     break;
                 case 3:
                     break;
@@ -123,9 +124,28 @@ namespace TP1_PlataformaDesarrollo
             UpdateUsuario.Show();
         }
 
+        private void initializeForm8(Post postSelected) 
+        {
+            UpdatePost = new Form8(postSelected);
+            UpdatePost.MdiParent = this;
+            UpdatePost.ModificarPost += modificarPost;
+            UpdatePost.volverAtras += logHandler;
+            UpdatePost.volverAlLogin += cerrarSesion;
+            UpdatePost.Show();
+        }
+
         private bool modificarUsuario(int Id, string Nombre, string Apellido, string Dni, string Email, bool EsADM, int IntentosFallidos, bool Bloqueado)
         {
             if (this.redSocial.modificarUsuario(Id, Nombre, Apellido, Dni, Email, EsADM, IntentosFallidos, Bloqueado))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool modificarPost(int Id, String Contenido) 
+        {
+            if (this.redSocial.ModificarPost(Id, Contenido)) 
             {
                 return true;
             }
