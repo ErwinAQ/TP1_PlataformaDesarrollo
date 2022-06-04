@@ -74,36 +74,6 @@ namespace TP1_PlataformaDesarrollo
             else
                 return false;
         }
-        /*public bool agregarPost(Usuario Usuario, string Contenido)
-        {
-            //comprobación para que no me agreguen post con id duplicado
-            bool esValido = true;
-            foreach (Post u in Post)
-            {
-                if (u.Contenido == Contenido)
-                    esValido = false;
-            }
-            if (esValido)
-            {
-                int idNuevoPost;
-                idNuevoPost = DB.agregarPost(Usuario, Contenido);
-                if (idNuevoPost != -1)
-                {
-                    //Ahora sí lo agrego en la lista
-                    Post nuevo = new Post(idNuevoPost, Usuario, Contenido);
-                    Post.Add(nuevo);
-                    return true;
-                }
-                else
-                {
-                    //algo salió mal con la query porque no generó un id válido
-                    return false;
-                }
-            }
-            else
-                return false;
-        }*/
-
         public bool IniciarSesion(string Dni, string Password)
         {
             int userId;
@@ -251,6 +221,32 @@ namespace TP1_PlataformaDesarrollo
             return result;
             //logedUser.MisPost.Add(Postt);
         }
+        public bool Comentar(Comentario comentario)
+        {
+            //in List<Tag>Tags
+            /*Agrega el Post p a la lista de posts, agrega el post a la lista del
+            usuario UsuarioActual. Revisa los tags, si no están en la lista de tags los agrega, luego para cada
+            tag agrega el post p a su lista de posts y agrega los tags en t a la lista de tags del post p.*/
+            int idComentario = DB.agregarComentario(comentario);
+            if(this.logedUser.Id != comentario.Post.Usuario.Id)
+            {
+                this.Post.Find(post => post.Id == comentario.Post.Id).Comentarios.Add(comentario);
+            }
+            else
+            {
+                this.logedUser.MisPost.Find(post => post.Id == comentario.Post.Id).Comentarios.Add(comentario);
+            }
+            bool result = idComentario != -1;
+
+            return result;
+            //logedUser.MisPost.Add(Postt);
+        }
+
+        public List<Comentario> obtenerComentariosByPost(int postId)
+        {
+            List<Comentario> comentarios = this.DB.obtenerComentariosByPost(postId);
+            return comentarios;
+        }
         public bool ModificarPost(int Id, string Contenido)
         {
             if (DB.modificarPost(Id, Contenido) == 1)
@@ -280,14 +276,11 @@ namespace TP1_PlataformaDesarrollo
         {
 
             bool resultEliminar = DB.eliminarPost(idPost);
-            if (resultEliminar)
+            if (!this.logedUser.EsADM)
             {
-                return true;
+                this.logedUser.MisPost = DB.obtenerMisPosts(this.logedUser.Id);
             }
-            else
-            {
-                return false;
-            }
+            return resultEliminar;
         }
         public void Comentar(in Post post, in Comentario comentario)
         {

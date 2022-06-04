@@ -452,7 +452,6 @@ namespace TP1_PlataformaDesarrollo
                     //mientras haya registros/filas en mi DataReader, sigo leyendo
                     while (reader.Read())
                     {
-                        //Console.Out.WriteLine("cantidad: " + misPost.Count());
                         Post post = new Post();
                         post.Id = Convert.ToInt32(reader[0]);
                         post.Usuario = this.getUserFromDatabase(Convert.ToInt32(reader[1]));
@@ -479,7 +478,7 @@ namespace TP1_PlataformaDesarrollo
 
         //}
 
-        public int agregarPost(Post postt)
+        public int agregarPost(Post post)
         {
             //primero me aseguro que lo pueda agregar a la base
             int resultadoQuery;
@@ -493,9 +492,9 @@ namespace TP1_PlataformaDesarrollo
                 command.Parameters.Add(new SqlParameter("@usuario", SqlDbType.NVarChar));
                 command.Parameters.Add(new SqlParameter("@contenido", SqlDbType.NVarChar));
                 command.Parameters.Add(new SqlParameter("@fecha", SqlDbType.DateTime));
-                command.Parameters["@usuario"].Value = postt.Usuario.Id;
-                command.Parameters["@contenido"].Value = postt.Contenido;
-                command.Parameters["@fecha"].Value = postt.Fecha;
+                command.Parameters["@usuario"].Value = post.Usuario.Id;
+                command.Parameters["@contenido"].Value = post.Contenido;
+                command.Parameters["@fecha"].Value = post.Fecha;
 
 
                 try
@@ -520,6 +519,93 @@ namespace TP1_PlataformaDesarrollo
                 }
                 return idNuevoPost;
             }
+        }
+
+        public int agregarComentario(Comentario comentario)
+        {
+            //primero me aseguro que lo pueda agregar a la base
+            int resultadoQuery;
+            int idNuevoComentario = -1;
+            string connectionString = Properties.Resources.ConnectionStr;
+            string queryString = "INSERT INTO [dbo].[comentarios] ([post_id], [usuario_id],[contenido],[created_at]) " +
+                                    "VALUES (@postId, @usuarioId, @contenido,@fecha);";
+            using (SqlConnection connection =
+                new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@postId", SqlDbType.BigInt));
+                command.Parameters.Add(new SqlParameter("@usuarioId", SqlDbType.BigInt));
+                command.Parameters.Add(new SqlParameter("@contenido", SqlDbType.NVarChar));
+                command.Parameters.Add(new SqlParameter("@fecha", SqlDbType.DateTime));
+                command.Parameters["@postId"].Value = comentario.Post.Id;
+                command.Parameters["@usuarioId"].Value = comentario.Usuario.Id;
+                command.Parameters["@contenido"].Value = comentario.Contenido;
+                command.Parameters["@fecha"].Value = comentario.FechaComentario;
+
+                try
+                {
+                    connection.Open();
+                    //esta consulta NO espera un resultado para leer, es del tipo NON Query
+                    resultadoQuery = command.ExecuteNonQuery();
+
+                    //*******************************************
+                    //Ahora hago esta query para obtener el ID
+                    string ConsultaID = "SELECT MAX([id]) FROM [dbo].[comentarios]";
+                    command = new SqlCommand(ConsultaID, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    reader.Read();
+                    idNuevoComentario = Convert.ToInt32(reader[0]);
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al insertar: " + ex.Message);
+                    return -1;
+                }
+                return idNuevoComentario;
+            }
+        }
+
+        public List<Comentario> obtenerComentariosByPost(int postId)
+        {
+            List<Comentario> comentarios = new List<Comentario>();
+
+            //Defino el string con la consulta que quiero realizar
+            string queryString = "SELECT * FROM [dbo].[comentarios] WHERE [post_id] = @postId;";
+
+            // Creo una conexión SQL con un Using, de modo que al finalizar, la conexión se cierra y se liberan recursos
+            using (SqlConnection connection =
+                new SqlConnection(connectionString))
+            {
+                // Defino el comando a enviar al motor SQL con la consulta y la conexión
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@postId", SqlDbType.BigInt));
+                command.Parameters["@postId"].Value = postId;
+                try
+                {
+                    //Abro la conexión
+                    connection.Open();
+                    //mi objecto DataReader va a obtener los resultados de la consulta, notar que a comando se le pide ExecuteReader()
+                    SqlDataReader reader = command.ExecuteReader();
+                    //mientras haya registros/filas en mi DataReader, sigo leyendo
+                    while (reader.Read())
+                    {
+                        Comentario comentario = new Comentario();
+                        comentario.Id = Convert.ToInt32(reader[0]);
+                        comentario.Post.Id = Convert.ToInt32(reader[1]);
+                        comentario.Usuario = this.getUserFromDatabase(Convert.ToInt32(reader[2]));
+                        comentario.Contenido = Convert.ToString(reader[3]);
+                        comentario.FechaComentario = Convert.ToDateTime(reader[4]);
+                        comentarios.Add(comentario);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return comentarios;
         }
 
         public List<Post> obtenerPostAmigos(int logedUserId)
@@ -705,61 +791,5 @@ namespace TP1_PlataformaDesarrollo
             }
             return misTags;
         }
-
-
-        /*public int eliminarPost(int Post_id) //varchar o int a la hora de crear el post
-        {
-            string connectionString = Properties.Resources.ConnectionStr;
-            string queryString = "DELETE FROM [dbo].[Post] WHERE Post_id=@post_id";
-            using (SqlConnection connection =
-                new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.Add(new SqlParameter("@post_id", SqlDbType.Int));
-                command.Parameters["@post_id"].Value = Post_id;
-                try
-                {
-                    connection.Open();
-                    //esta consulta NO espera un resultado para leer, es del tipo NON Query
-                    return command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return 0;
-                }
-            }
-        }*/
-
-        /*public int modificarPost(int Post_id, date Fecha, string Contenido)
-        {
-            string connectionString = Properties.Resources.ConnectionStr;
-            string queryString = "UPDATE [dbo].[Usuarios] SET Post_id=@post_id, Fecha=@fecha,Contenido=@contenido,";
-            using (SqlConnection connection =
-                new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.Add(new SqlParameter("@post_id", SqlDbType.Int));
-                command.Parameters.Add(new SqlParameter("@fecha", SqlDbType.Date));
-                command.Parameters.Add(new SqlParameter("@contenido", SqlDbType.NVarChar));
-                
-                command.Parameters["@post_id"].Value = Post_id;
-                command.Parameters["@fecha"].Value = Fecha;
-                command.Parameters["@contenido"].Value = Contenido;
-                
-                try
-                {
-                    connection.Open();
-                    //esta consulta NO espera un resultado para leer, es del tipo NON Query
-                    return command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return 0;
-                }
-            }
-        }*/
-
     }
 }

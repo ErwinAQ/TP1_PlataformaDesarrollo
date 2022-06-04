@@ -20,9 +20,9 @@ namespace TP1_PlataformaDesarrollo
         public Post() {
 
             this.Usuario = new Usuario();
-            this.Comentario = new Comentario();
-            this.Reaccion = new Reaccion();
-            this.Tag = new Tag();
+            this.Comentarios = new List<Comentario>();
+            this.Reacciones = new List<Reaccion>();
+            this.Tags = new List<Tag>();
 
         }
         public Post(int id, Usuario usuario,string contenido  )
@@ -35,11 +35,11 @@ namespace TP1_PlataformaDesarrollo
 
         public Usuario Usuario { get; set; }
 
-        public Comentario Comentario { get; set; } 
+        public List<Comentario> Comentarios { get; set; } 
 
-        public Reaccion Reaccion { get; set; }
+        public List<Reaccion> Reacciones { get; set; }
 
-        public Tag Tag { get; set; }
+        public List<Tag> Tags { get; set; }
 
       
     }

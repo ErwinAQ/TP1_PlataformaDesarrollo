@@ -15,6 +15,10 @@ namespace TP1_PlataformaDesarrollo
         public delegate void cerrarSesion();
         public cerrarSesion volverAlLogin;
 
+
+        public delegate void opcElegida(int opcionElegida, Post post);
+        public opcElegida comentarPost;
+
         private RedSocial redSocial;
         public Form5(RedSocial redSocial)
         {
@@ -63,6 +67,7 @@ namespace TP1_PlataformaDesarrollo
                 this.dataGridPostsAmigos.Rows[n].Cells[0].Value = posts[x].Usuario.Nombre + " " + posts[x].Usuario.Apellido;
                 this.dataGridPostsAmigos.Rows[n].Cells[1].Value = posts[x].Contenido;
                 this.dataGridPostsAmigos.Rows[n].Cells[2].Value = posts[x].Fecha;
+                this.dataGridPostsAmigos.Rows[n].Cells[3].Value = "Comentar";
             }
         }
 
@@ -74,6 +79,8 @@ namespace TP1_PlataformaDesarrollo
                 int n = this.dataGridMisPosts.Rows.Add();
                 this.dataGridMisPosts.Rows[n].Cells[0].Value = posts[x].Contenido;
                 this.dataGridMisPosts.Rows[n].Cells[1].Value = posts[x].Fecha.ToLocalTime();
+                this.dataGridMisPosts.Rows[n].Cells[2].Value = "Ver";
+                this.dataGridMisPosts.Rows[n].Cells[3].Value = "Eliminar";
             }
         }
 
@@ -101,7 +108,6 @@ namespace TP1_PlataformaDesarrollo
         private void dataGridAmigosActuales_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             List<Usuario> amigos = this.redSocial.logedUser.Amigos;
-            Console.Out.WriteLine("rowIndex: " + e.RowIndex);
             if (e.ColumnIndex == 1 && e.RowIndex > 0) // solo si selecciona la columna de agregar
             {
                 if (this.redSocial.QuitarAmigo(amigos[e.RowIndex].Id))
@@ -141,6 +147,39 @@ namespace TP1_PlataformaDesarrollo
             else
             {
                 MessageBox.Show("No se pudo crear el post");
+            }
+        }
+
+        private void dataGridMisPosts_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            if (e.ColumnIndex == 2)
+            {
+                this.comentarPost(1, this.redSocial.logedUser.MisPost[e.RowIndex]);
+            }
+            else if (e.ColumnIndex == 3)
+            {
+                if (this.redSocial.eliminarPost(this.redSocial.logedUser.MisPost[e.RowIndex].Id))
+                {
+                    MessageBox.Show("Se eliminó el post correctamente");
+                    this.richTextBox1.Text = null;
+                    this.dataGridMisPosts.Rows.Clear();
+                    this.initializeMisPosts();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo eliminar el post");
+                }
+            }
+        }
+
+        private void dataGridPostsAmigos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            if (e.ColumnIndex == 3)
+            {
+                this.comentarPost(1, this.redSocial.Post[e.RowIndex]);
             }
         }
     }

@@ -15,7 +15,10 @@ namespace TP1_PlataformaDesarrollo
 
         public DateTime FechaComentario { get; set; }
 
-        public Comentario() { }
+        public Comentario() {
+            this.Usuario = new Usuario();
+            this.Post = new Post();
+        }
         public Comentario(string contenido, DateTime fecha)
         {
             Contenido = contenido;

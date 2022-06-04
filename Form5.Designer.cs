@@ -47,11 +47,13 @@
             this.userPost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contentPost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.datePost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.addCommentColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.dataGridMisPosts = new System.Windows.Forms.DataGridView();
             this.contentColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaPost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.verPostColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.deleteMyPostVColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAmigosActuales)).BeginInit();
@@ -199,11 +201,13 @@
             this.dataGridPostsAmigos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.userPost,
             this.contentPost,
-            this.datePost});
+            this.datePost,
+            this.addCommentColumn});
             this.dataGridPostsAmigos.Location = new System.Drawing.Point(294, 145);
             this.dataGridPostsAmigos.Name = "dataGridPostsAmigos";
-            this.dataGridPostsAmigos.Size = new System.Drawing.Size(369, 128);
+            this.dataGridPostsAmigos.Size = new System.Drawing.Size(445, 128);
             this.dataGridPostsAmigos.TabIndex = 9;
+            this.dataGridPostsAmigos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridPostsAmigos_CellClick);
             // 
             // userPost
             // 
@@ -219,6 +223,11 @@
             // 
             this.datePost.HeaderText = "Fecha";
             this.datePost.Name = "datePost";
+            // 
+            // addCommentColumn
+            // 
+            this.addCommentColumn.HeaderText = "";
+            this.addCommentColumn.Name = "addCommentColumn";
             // 
             // label4
             // 
@@ -247,11 +256,13 @@
             this.dataGridMisPosts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.contentColumn,
             this.fechaPost,
+            this.verPostColumn,
             this.deleteMyPostVColumn});
             this.dataGridMisPosts.Location = new System.Drawing.Point(294, 304);
             this.dataGridMisPosts.Name = "dataGridMisPosts";
-            this.dataGridMisPosts.Size = new System.Drawing.Size(369, 101);
+            this.dataGridMisPosts.Size = new System.Drawing.Size(445, 143);
             this.dataGridMisPosts.TabIndex = 12;
+            this.dataGridMisPosts.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridMisPosts_CellClick);
             // 
             // contentColumn
             // 
@@ -263,9 +274,16 @@
             this.fechaPost.HeaderText = "Fecha";
             this.fechaPost.Name = "fechaPost";
             // 
+            // verPostColumn
+            // 
+            this.verPostColumn.HeaderText = "";
+            this.verPostColumn.Name = "verPostColumn";
+            this.verPostColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.verPostColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // deleteMyPostVColumn
             // 
-            this.deleteMyPostVColumn.HeaderText = "action";
+            this.deleteMyPostVColumn.HeaderText = "";
             this.deleteMyPostVColumn.Name = "deleteMyPostVColumn";
             // 
             // Form5
@@ -326,8 +344,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn datePost;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView dataGridMisPosts;
+        private System.Windows.Forms.DataGridViewButtonColumn addCommentColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn contentColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaPost;
+        private System.Windows.Forms.DataGridViewButtonColumn verPostColumn;
         private System.Windows.Forms.DataGridViewButtonColumn deleteMyPostVColumn;
     }
 }

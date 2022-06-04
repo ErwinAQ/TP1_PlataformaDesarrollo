@@ -21,6 +21,7 @@ namespace TP1_PlataformaDesarrollo
         Form6 InicioAdminLogueado;
         Form7 UpdateUsuario;
         Form8 UpdatePost;
+        Form9 ComentarPost;
 
         //Variables auxiliares
         RedSocial redSocial;
@@ -75,9 +76,9 @@ namespace TP1_PlataformaDesarrollo
             }
             else
             {
-                MessageBox.Show("Bienvenido al red social ");
                 InicioUserLogueado = new Form5(this.redSocial);
                 InicioUserLogueado.MdiParent = this;
+                InicioUserLogueado.comentarPost += comentarPost;
                 InicioUserLogueado.volverAlLogin += cerrarSesion;
                 InicioUserLogueado.Show();
             }
@@ -114,6 +115,16 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
+        private void comentarPost(int opcionElegida, Post post) 
+        {
+            switch (opcionElegida) 
+            {
+                case 1:
+                    initializeForm9(post);
+                    break;
+            }
+        }
+
         private void initializeForm7(Usuario usuarioSelected)
         {
             UpdateUsuario = new Form7(usuarioSelected);
@@ -132,6 +143,16 @@ namespace TP1_PlataformaDesarrollo
             UpdatePost.volverAtras += logHandler;
             UpdatePost.volverAlLogin += cerrarSesion;
             UpdatePost.Show();
+        }
+
+        private void initializeForm9(Post postSelected) 
+        {
+            postSelected.Comentarios = this.redSocial.obtenerComentariosByPost(postSelected.Id);
+            ComentarPost = new Form9(this.redSocial, postSelected);
+            ComentarPost.MdiParent = this;
+            ComentarPost.volverAtras += logHandler;
+            ComentarPost.volverAlLogin += cerrarSesion;
+            ComentarPost.Show();
         }
 
         private bool modificarUsuario(int Id, string Nombre, string Apellido, string Dni, string Email, bool EsADM, int IntentosFallidos, bool Bloqueado)
