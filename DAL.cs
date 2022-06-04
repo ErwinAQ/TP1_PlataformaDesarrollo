@@ -566,6 +566,32 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
+        public bool eliminarComentario(int idComentario)
+        {
+            bool result = false;
+            string connectionString = Properties.Resources.ConnectionStr;
+            string queryString = "DELETE FROM [dbo].[comentarios] WHERE [id]=@comentarioId;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@comentarioId", SqlDbType.BigInt));
+                command.Parameters["@comentarioId"].Value = idComentario;
+                try
+                {
+                    connection.Open();
+                    command.ExecuteReader();
+                    connection.Close();
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                return result;
+            }
+
+        }
+
         public List<Comentario> obtenerComentariosByPost(int postId)
         {
             List<Comentario> comentarios = new List<Comentario>();

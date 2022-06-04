@@ -93,12 +93,6 @@ namespace TP1_PlataformaDesarrollo
             return false;
         }
 
-        /*
-        //-  la función IniciarSesión nos devuelve el id del usuario encontrado
-        //-  en la clase Red Social buscamos en toda la lista de usuarios el usuario que tenga el id
-        //   que nos devolvió la función IniciarSesion
-         */
-
         private void seleccionarTabla(int opcionElegida, int indexItemSeleccionado)
         {
             switch (opcionElegida)
@@ -137,7 +131,8 @@ namespace TP1_PlataformaDesarrollo
 
         private void initializeForm8(Post postSelected) 
         {
-            UpdatePost = new Form8(postSelected);
+            postSelected.Comentarios = this.redSocial.obtenerComentariosByPost(postSelected.Id);
+            UpdatePost = new Form8(this.redSocial, postSelected);
             UpdatePost.MdiParent = this;
             UpdatePost.ModificarPost += modificarPost;
             UpdatePost.volverAtras += logHandler;

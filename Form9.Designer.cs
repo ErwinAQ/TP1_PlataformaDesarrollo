@@ -39,11 +39,12 @@
             this.newComentarioRichTextBox = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridComments = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.usernameCommentColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contentCommentColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaCommentColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.updateCommentBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridComments)).BeginInit();
             this.SuspendLayout();
@@ -69,7 +70,7 @@
             // cerrarSesionToolStripMenuItem
             // 
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.cerrarSesionToolStripMenuItem.Text = "Cerrar sesion";
             this.cerrarSesionToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem_Click);
             // 
@@ -144,10 +145,25 @@
             this.usernameCommentColumn,
             this.contentCommentColumn,
             this.fechaCommentColumn});
-            this.dataGridComments.Location = new System.Drawing.Point(388, 207);
+            this.dataGridComments.Location = new System.Drawing.Point(391, 207);
             this.dataGridComments.Name = "dataGridComments";
-            this.dataGridComments.Size = new System.Drawing.Size(343, 150);
+            this.dataGridComments.Size = new System.Drawing.Size(344, 150);
             this.dataGridComments.TabIndex = 8;
+            // 
+            // usernameCommentColumn
+            // 
+            this.usernameCommentColumn.HeaderText = "Nombre";
+            this.usernameCommentColumn.Name = "usernameCommentColumn";
+            // 
+            // contentCommentColumn
+            // 
+            this.contentCommentColumn.HeaderText = "Contenido";
+            this.contentCommentColumn.Name = "contentCommentColumn";
+            // 
+            // fechaCommentColumn
+            // 
+            this.fechaCommentColumn.HeaderText = "Fecha";
+            this.fechaCommentColumn.Name = "fechaCommentColumn";
             // 
             // button2
             // 
@@ -168,26 +184,22 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Comentarios del post";
             // 
-            // usernameCommentColumn
+            // updateCommentBtn
             // 
-            this.usernameCommentColumn.HeaderText = "Nombre";
-            this.usernameCommentColumn.Name = "usernameCommentColumn";
-            // 
-            // contentCommentColumn
-            // 
-            this.contentCommentColumn.HeaderText = "Contenido";
-            this.contentCommentColumn.Name = "contentCommentColumn";
-            // 
-            // fechaCommentColumn
-            // 
-            this.fechaCommentColumn.HeaderText = "Fecha";
-            this.fechaCommentColumn.Name = "fechaCommentColumn";
+            this.updateCommentBtn.Location = new System.Drawing.Point(580, 119);
+            this.updateCommentBtn.Name = "updateCommentBtn";
+            this.updateCommentBtn.Size = new System.Drawing.Size(75, 23);
+            this.updateCommentBtn.TabIndex = 11;
+            this.updateCommentBtn.Text = "Actualizar";
+            this.updateCommentBtn.UseVisualStyleBackColor = true;
+            this.updateCommentBtn.Click += new System.EventHandler(this.updateCommentBtn_Click);
             // 
             // Form9
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.updateCommentBtn);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridComments);
@@ -228,5 +240,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn usernameCommentColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn contentCommentColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaCommentColumn;
+        private System.Windows.Forms.Button updateCommentBtn;
     }
 }

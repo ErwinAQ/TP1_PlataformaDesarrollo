@@ -26,10 +26,28 @@ namespace TP1_PlataformaDesarrollo
             this.post = post;
             InitializeComponent();
             this.richTextBox1.Text = post.Contenido;
-            this.label2.Text = this.post.Usuario.Nombre + " " + post.Usuario.Apellido;
+            this.label2.Text = this.post.Usuario.Nombre + " " + this.post.Usuario.Apellido;
             this.InitializeDataGridComments();
+            this.updateCommentBtn.Visible = false;
+
+            if (this.redSocial.logedUser.Id == post.Usuario.Id)
+            {
+                this.updateCommentBtn.Visible = true;
+                this.richTextBox1.ReadOnly = false;
+            }
         }
 
+        private void updateCommentBtn_Click(object sender, EventArgs e)
+        {
+            if (this.redSocial.ModificarPost(this.post.Id, this.richTextBox1.Text))
+            {
+                MessageBox.Show("Modificado con éxito");
+                this.Close();
+                this.volverAtras();
+            }
+            else
+                MessageBox.Show("No se pudo modificar el post");
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -81,5 +99,7 @@ namespace TP1_PlataformaDesarrollo
                 MessageBox.Show("Debe completar el campo de comentario");
             }
         }
+
+        
     }
 }

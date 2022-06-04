@@ -15,8 +15,6 @@ namespace TP1_PlataformaDesarrollo
 
         public List<Post> Post { get; set; }
 
-        public List<Comentario> Comentario { get; set; }
-        public List<Reaccion> Reaccion { get; set; }
         public List<Tag> Tags { get; set; }
 
         public List<Usuario> usuarioNoAmigos { get; set; }
@@ -28,12 +26,6 @@ namespace TP1_PlataformaDesarrollo
         {
             Usuarios = new List<Usuario>();
             Post = new List<Post>();
-            Comentario = new List<Comentario>();
-            Reaccion = new List<Reaccion>();
-            Tags = new List<Tag>();
-
-
-
             DB = new DAL();
             inicializarAtributos();
         }
@@ -110,19 +102,13 @@ namespace TP1_PlataformaDesarrollo
             bool resultEliminar = DB.eliminarUsuario(idUser);
             if (resultEliminar && resultEliminarRelAmigos)
             {
+                this.Post = this.DB.inicializarPost();
                 return true;
             }
             else
             {
                 return false;
             }
-            //Elimina los comentarios, reacciones y posts del usuario. Luego elimina el
-            //usuario UsuarioActual(ver en método debajo).
-            //logedUser.MisComentarios.Remove;
-            //logedUser.MisPost.Remove;
-            //logedUser.MisReacciones.Remove;
-
-
         }
 
 
@@ -242,6 +228,20 @@ namespace TP1_PlataformaDesarrollo
             //logedUser.MisPost.Add(Postt);
         }
 
+        public bool QuitarComentario(Post post, int idComentario)
+        {
+            bool resultEliminar = DB.eliminarComentario(idComentario);
+            if (resultEliminar)
+            {
+                post.Comentarios = DB.obtenerComentariosByPost(post.Id);
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+        }
+
         public List<Comentario> obtenerComentariosByPost(int postId)
         {
             List<Comentario> comentarios = this.DB.obtenerComentariosByPost(postId);
@@ -254,11 +254,14 @@ namespace TP1_PlataformaDesarrollo
                 try
                 {
                     //Ahora sí lo MODIFICO en la lista
-                    for (int i = 0; i < Post.Count; i++)
-                        if (Post[i].Id == Id)
-                        {
-                            Post[i].Contenido = Contenido;
-                        }
+                    if (this.logedUser.EsADM)
+                    {
+                        this.Post = this.DB.inicializarPost();
+                    }
+                    else
+                    {
+                        this.logedUser.MisPost = this.DB.obtenerMisPosts(this.logedUser.Id);
+                    }
                     return true;
                 }
                 catch (Exception)
@@ -282,17 +285,9 @@ namespace TP1_PlataformaDesarrollo
             }
             return resultEliminar;
         }
-        public void Comentar(in Post post, in Comentario comentario)
-        {
-            //Alta de comentario c del UsuarioActual en el post p.
-        }
         public void ModificarComentario(in Comentario comentario)
         {
             //Idem modificar usuario pero con datos de comentario.
-        }
-        public void QuitarComentario(in Post post, in Comentario comentario)
-        {
-            //Elimina el comentario c en el post p.
         }
         public void Reaccionar(in Post post, in Reaccion reaccion)
         {

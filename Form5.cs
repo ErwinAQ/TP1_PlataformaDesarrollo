@@ -27,7 +27,6 @@ namespace TP1_PlataformaDesarrollo
             this.welcomeUserLabel.Text = "Bienvenido " + this.redSocial.logedUser.Nombre + "!";
             this.initializeMisPosts();
             this.initializeDataGrids();
-
         }
 
         private void initializeDataGrids()
@@ -67,13 +66,14 @@ namespace TP1_PlataformaDesarrollo
                 this.dataGridPostsAmigos.Rows[n].Cells[0].Value = posts[x].Usuario.Nombre + " " + posts[x].Usuario.Apellido;
                 this.dataGridPostsAmigos.Rows[n].Cells[1].Value = posts[x].Contenido;
                 this.dataGridPostsAmigos.Rows[n].Cells[2].Value = posts[x].Fecha;
-                this.dataGridPostsAmigos.Rows[n].Cells[3].Value = "Comentar";
+                this.dataGridPostsAmigos.Rows[n].Cells[3].Value = "Ver";
             }
         }
 
         private void initializeMisPosts()
         {
             List<Post> posts = this.redSocial.logedUser.MisPost;
+            Console.Out.WriteLine("cant de mis posts: " + posts.Count);
             for (int x = 0; x < posts.Count; x++)
             {
                 int n = this.dataGridMisPosts.Rows.Add();
@@ -86,8 +86,9 @@ namespace TP1_PlataformaDesarrollo
 
         private void dataGridNoAmigos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             List<Usuario> noAmigos = this.redSocial.usuarioNoAmigos;
-            if (e.ColumnIndex == 1 && e.RowIndex > 0) // solo si selecciona la columna de agregar
+            if (e.ColumnIndex == 1) // solo si selecciona la columna de agregar
             {
                 if (this.redSocial.AgregarAmigo(noAmigos[e.RowIndex].Id))
                 {
@@ -107,8 +108,9 @@ namespace TP1_PlataformaDesarrollo
 
         private void dataGridAmigosActuales_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             List<Usuario> amigos = this.redSocial.logedUser.Amigos;
-            if (e.ColumnIndex == 1 && e.RowIndex > 0) // solo si selecciona la columna de agregar
+            if (e.ColumnIndex == 1) // solo si selecciona la columna de agregar
             {
                 if (this.redSocial.QuitarAmigo(amigos[e.RowIndex].Id))
                 {
