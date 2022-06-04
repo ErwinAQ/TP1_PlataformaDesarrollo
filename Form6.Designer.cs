@@ -42,17 +42,17 @@
             this.IntentosFallidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Bloqueado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
             this.Id_Post = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Contenido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Id_Comentario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Id_Reaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Id_Tag = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Comentarios = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.EditarPost = new System.Windows.Forms.DataGridViewButtonColumn();
             this.EliminarPost = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -64,7 +64,7 @@
             this.archivoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1181, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -99,14 +99,13 @@
             this.Es_ADM,
             this.IntentosFallidos,
             this.Bloqueado,
-            this.Eliminar});
-            this.dataGridView1.Location = new System.Drawing.Point(58, 59);
+            this.Eliminar,
+            this.Modificar});
+            this.dataGridView1.Location = new System.Drawing.Point(12, 60);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1047, 133);
+            this.dataGridView1.Size = new System.Drawing.Size(766, 133);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick_1);
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // ID
@@ -159,11 +158,16 @@
             this.Eliminar.HeaderText = "Eliminar";
             this.Eliminar.Name = "Eliminar";
             // 
+            // Modificar
+            // 
+            this.Modificar.HeaderText = "Modificar";
+            this.Modificar.Name = "Modificar";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(353, 28);
+            this.label1.Location = new System.Drawing.Point(346, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 18);
             this.label1.TabIndex = 2;
@@ -179,20 +183,25 @@
             this.Usuario,
             this.Contenido,
             this.Fecha,
-            this.Id_Comentario,
-            this.Id_Reaccion,
-            this.Id_Tag,
+            this.Comentarios,
+            this.EditarPost,
             this.EliminarPost});
-            this.dataGridView2.Location = new System.Drawing.Point(58, 261);
+            this.dataGridView2.Location = new System.Drawing.Point(12, 255);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(845, 181);
+            this.dataGridView2.Size = new System.Drawing.Size(746, 144);
             this.dataGridView2.TabIndex = 0;
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick_1);
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick_1);
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
-
-
-
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(187, 219);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(52, 18);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Posts";
             // 
             // Id_Post
             // 
@@ -214,20 +223,15 @@
             this.Fecha.HeaderText = "Fecha";
             this.Fecha.Name = "Fecha";
             // 
-            // Id_Comentario
+            // Comentarios
             // 
-            this.Id_Comentario.HeaderText = "Id_Comentario";
-            this.Id_Comentario.Name = "Id_Comentario";
+            this.Comentarios.HeaderText = "Comentarios";
+            this.Comentarios.Name = "Comentarios";
             // 
-            // Id_Reaccion
+            // EditarPost
             // 
-            this.Id_Reaccion.HeaderText = "Id_Reaccion";
-            this.Id_Reaccion.Name = "Id_Reaccion";
-            // 
-            // Id_Tag
-            // 
-            this.Id_Tag.HeaderText = "Id_Tag";
-            this.Id_Tag.Name = "Id_Tag";
+            this.EditarPost.HeaderText = "EditarPost";
+            this.EditarPost.Name = "EditarPost";
             // 
             // EliminarPost
             // 
@@ -236,21 +240,11 @@
             this.EliminarPost.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.EliminarPost.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(211, 226);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 18);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Posts";
-            // 
             // Form6
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1181, 623);
+            this.ClientSize = new System.Drawing.Size(800, 447);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.label1);
@@ -277,6 +271,8 @@
         private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
@@ -287,15 +283,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn IntentosFallidos;
         private System.Windows.Forms.DataGridViewTextBoxColumn Bloqueado;
         private System.Windows.Forms.DataGridViewButtonColumn Eliminar;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id_Post;
         private System.Windows.Forms.DataGridViewTextBoxColumn Usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn Contenido;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id_Comentario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id_Reaccion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id_Tag;
+        private System.Windows.Forms.DataGridViewButtonColumn Comentarios;
+        private System.Windows.Forms.DataGridViewButtonColumn EditarPost;
         private System.Windows.Forms.DataGridViewButtonColumn EliminarPost;
     }
 }

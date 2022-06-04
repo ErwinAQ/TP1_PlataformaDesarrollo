@@ -458,10 +458,6 @@ namespace TP1_PlataformaDesarrollo
                         post.Usuario.Id = Convert.ToInt32(reader[1]);
                         post.Contenido = Convert.ToString(reader[2]);
                         post.Fecha = Convert.ToDateTime(reader[3]);
-                        post.Comentario.Id = Convert.ToInt32(reader[4]);
-                        post.Reaccion.Id = Convert.ToInt32(reader[5]);
-                        post.Tag.Id = Convert.ToInt32(reader[6]);
-
                         
                         misPost.Add(post);
                         

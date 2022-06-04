@@ -53,7 +53,7 @@ namespace TP1_PlataformaDesarrollo
                 this.dataGridView1.Rows[n].Cells[7].Value = usuarios[x].IntentosFallidos;
                 this.dataGridView1.Rows[n].Cells[8].Value = usuarios[x].Bloqueado;
                 this.dataGridView1.Rows[n].Cells[9].Value = "Eliminar";
-                
+                this.dataGridView1.Rows[n].Cells[10].Value = "Editar";
 
             }
         }
@@ -70,23 +70,16 @@ namespace TP1_PlataformaDesarrollo
                 this.dataGridView2.Rows[n].Cells[1].Value = post[x].Usuario.Id;
                 this.dataGridView2.Rows[n].Cells[2].Value = post[x].Contenido;
                 this.dataGridView2.Rows[n].Cells[3].Value = post[x].Fecha;
-                this.dataGridView2.Rows[n].Cells[4].Value = post[x].Comentario.Id;
-                this.dataGridView2.Rows[n].Cells[5].Value = post[x].Reaccion.Id;
-                this.dataGridView2.Rows[n].Cells[6].Value = post[x].Tag.Id;
-                
-                this.dataGridView2.Rows[n].Cells[7].Value = "Eliminar";
+                this.dataGridView2.Rows[n].Cells[4].Value = "Ver";
+                this.dataGridView2.Rows[n].Cells[5].Value = "Editar";
+                this.dataGridView2.Rows[n].Cells[6].Value = "Eliminar";
+
             }
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             List<Usuario> usuarios = this.redSocial.Usuarios;
-            if (e.ColumnIndex == 7) // solo si selecciona la columna de eliminar
+            if (e.ColumnIndex == 9) // solo si selecciona la columna de eliminar
             {
                 if (this.redSocial.EliminarUsuario(usuarios[e.RowIndex].Id))
                 {
@@ -100,16 +93,20 @@ namespace TP1_PlataformaDesarrollo
                     MessageBox.Show("El usuario no se pudo eliminar");
                 }
             }
+            if (e.ColumnIndex == 10) 
+            {
+                this.seleccionarTabla(UPDATE_USUARIO, e.RowIndex);
+            }
         }
 
         private void dataGridView2_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             List<Post> post = this.redSocial.Post;
-            if (e.ColumnIndex == 7) // solo si selecciona la columna de eliminar
+            if (e.ColumnIndex == 6) // solo si selecciona la columna de eliminar
             {
                 if (this.redSocial.eliminarPost(post[e.RowIndex].Id))
                 {
-                    MessageBox.Show("Usuario eliminado");
+                    MessageBox.Show("Post eliminado");
                     this.redSocial.inicializarAtributos();
                     dataGridView2.Rows.Clear();
                     initializeDataGrids();
@@ -118,6 +115,10 @@ namespace TP1_PlataformaDesarrollo
                 {
                     MessageBox.Show("El post no se pudo eliminar");
                 }
+            }
+            if (e.ColumnIndex == 4) 
+            {
+                this.seleccionarTabla(UPDATE_POSTS, e.RowIndex);
             }
         }
 
@@ -136,11 +137,6 @@ namespace TP1_PlataformaDesarrollo
         {
             this.Close();
             this.volverAlLogin();
-        }
-
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 
