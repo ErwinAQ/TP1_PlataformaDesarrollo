@@ -200,6 +200,7 @@ namespace TP1_PlataformaDesarrollo
             {
                 this.logedUser.Amigos.Add(this.usuarioNoAmigos[index]);
                 this.usuarioNoAmigos.RemoveAt(index);
+                this.Post = DB.obtenerPostAmigos(this.logedUser.Id);
                 return true;
             }
             else
@@ -219,6 +220,7 @@ namespace TP1_PlataformaDesarrollo
                 {
                     this.usuarioNoAmigos.Add(this.logedUser.Amigos[index]);
                     this.logedUser.Amigos.RemoveAt(index);
+                    this.Post = DB.obtenerPostAmigos(this.logedUser.Id);
                     return true;
                 }
                 else
@@ -231,13 +233,20 @@ namespace TP1_PlataformaDesarrollo
                 return false;
             }
         }
-        public void Postear(in Post Postt)
+        public bool Postear(in Post Postt)
         {
             //in List<Tag>Tags
             /*Agrega el Post p a la lista de posts, agrega el post a la lista del
             usuario UsuarioActual. Revisa los tags, si no están en la lista de tags los agrega, luego para cada
             tag agrega el post p a su lista de posts y agrega los tags en t a la lista de tags del post p.*/
-            DB.agregarPost(Postt);
+            int idPost = DB.agregarPost(Postt);
+            bool result = idPost != -1;
+
+            if (result)
+            {
+                this.Post = DB.obtenerPostAmigos(this.logedUser.Id);
+            }
+            return result;
             //logedUser.MisPost.Add(Postt);
         }
         public void ModificarPost(in Post Post)

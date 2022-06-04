@@ -43,11 +43,15 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridPostsAmigos = new System.Windows.Forms.DataGridView();
+            this.label4 = new System.Windows.Forms.Label();
+            this.userPost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contentPost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.datePost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAmigosActuales)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNoAmigos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridPostsAmigos)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -65,13 +69,13 @@
             this.cerrarSesionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cerrarSesionToolStripMenuItem1});
             this.cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.cerrarSesionToolStripMenuItem.Text = "Archivo";
+            this.cerrarSesionToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.cerrarSesionToolStripMenuItem.Text = "Opciones";
             // 
             // cerrarSesionToolStripMenuItem1
             // 
             this.cerrarSesionToolStripMenuItem1.Name = "cerrarSesionToolStripMenuItem1";
-            this.cerrarSesionToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.cerrarSesionToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.cerrarSesionToolStripMenuItem1.Text = "Cerrar sesion";
             this.cerrarSesionToolStripMenuItem1.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem1_Click);
             // 
@@ -114,7 +118,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 228);
+            this.label2.Location = new System.Drawing.Point(12, 237);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 3;
@@ -127,7 +131,7 @@
             this.dataGridNoAmigos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NoFriendNameColumn,
             this.addFriendColumn});
-            this.dataGridNoAmigos.Location = new System.Drawing.Point(12, 244);
+            this.dataGridNoAmigos.Location = new System.Drawing.Point(12, 253);
             this.dataGridNoAmigos.Name = "dataGridNoAmigos";
             this.dataGridNoAmigos.Size = new System.Drawing.Size(247, 194);
             this.dataGridNoAmigos.TabIndex = 4;
@@ -181,20 +185,51 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "En que estas pensando?";
             // 
-            // dataGridView1
+            // dataGridPostsAmigos
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(294, 116);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(422, 255);
-            this.dataGridView1.TabIndex = 9;
+            this.dataGridPostsAmigos.AllowUserToAddRows = false;
+            this.dataGridPostsAmigos.AllowUserToDeleteRows = false;
+            this.dataGridPostsAmigos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridPostsAmigos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.userPost,
+            this.contentPost,
+            this.datePost});
+            this.dataGridPostsAmigos.Location = new System.Drawing.Point(294, 145);
+            this.dataGridPostsAmigos.Name = "dataGridPostsAmigos";
+            this.dataGridPostsAmigos.Size = new System.Drawing.Size(408, 255);
+            this.dataGridPostsAmigos.TabIndex = 9;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(294, 126);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(102, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Posts de mis amigos";
+            // 
+            // userPost
+            // 
+            this.userPost.HeaderText = "Nombre";
+            this.userPost.Name = "userPost";
+            // 
+            // contentPost
+            // 
+            this.contentPost.HeaderText = "Contenido";
+            this.contentPost.Name = "contentPost";
+            // 
+            // datePost
+            // 
+            this.datePost.HeaderText = "Fecha";
+            this.datePost.Name = "datePost";
             // 
             // Form5
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.dataGridPostsAmigos);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.richTextBox1);
@@ -213,7 +248,7 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAmigosActuales)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNoAmigos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridPostsAmigos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -236,6 +271,10 @@
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridPostsAmigos;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn userPost;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contentPost;
+        private System.Windows.Forms.DataGridViewTextBoxColumn datePost;
     }
 }

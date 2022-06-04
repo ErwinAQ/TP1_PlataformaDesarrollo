@@ -29,6 +29,7 @@ namespace TP1_PlataformaDesarrollo
         {
             this.initializeDataGridAmigos();
             this.initializeDataGridNoAmigos();
+            this.initializeDataGridFriendsPosts();
         }
 
         private void initializeDataGridAmigos()
@@ -52,6 +53,18 @@ namespace TP1_PlataformaDesarrollo
             }
         }
 
+        private void initializeDataGridFriendsPosts()
+        {
+            List<Post> posts = this.redSocial.Post;
+            for (int x = 0; x < posts.Count; x++)
+            {
+                int n = this.dataGridPostsAmigos.Rows.Add();
+                this.dataGridPostsAmigos.Rows[n].Cells[0].Value = posts[x].Usuario.Nombre + " " + posts[x].Usuario.Apellido;
+                this.dataGridPostsAmigos.Rows[n].Cells[1].Value = posts[x].Contenido;
+                this.dataGridPostsAmigos.Rows[n].Cells[2].Value = posts[x].Fecha;
+            }
+        }
+
         private void dataGridNoAmigos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             List<Usuario> noAmigos = this.redSocial.usuarioNoAmigos;
@@ -62,6 +75,7 @@ namespace TP1_PlataformaDesarrollo
                     MessageBox.Show("El usuario ya es amigo suyo");
                     this.dataGridAmigosActuales.Rows.Clear();
                     this.dataGridNoAmigos.Rows.Clear();
+                    this.dataGridPostsAmigos.Rows.Clear();
                     this.initializeDataGrids();
                 }
                 else
@@ -82,6 +96,7 @@ namespace TP1_PlataformaDesarrollo
                     MessageBox.Show("El usuario ya no es amigo suyo");
                     this.dataGridAmigosActuales.Rows.Clear();
                     this.dataGridNoAmigos.Rows.Clear();
+                    this.dataGridPostsAmigos.Rows.Clear();
                     this.initializeDataGrids();
                 }
                 else
@@ -102,7 +117,19 @@ namespace TP1_PlataformaDesarrollo
             post.Contenido = this.richTextBox1.Text;
             post.Usuario = this.redSocial.logedUser;
             post.Fecha = DateTime.Now;
-            this.redSocial.Postear(post);
+            
+            if (this.redSocial.Postear(post))
+            {
+                MessageBox.Show("Se creó el post correctamente");
+                this.richTextBox1.Text = null;
+                //this.dataGridAmigosActuales.Rows.Clear();
+                //this.dataGridNoAmigos.Rows.Clear();
+                //this.initializeDataGrids();
+            }
+            else
+            {
+                MessageBox.Show("No se pudo crear el post");
+            }
         }
     }
 }
