@@ -17,7 +17,7 @@ namespace TP1_PlataformaDesarrollo
 
         public List<Comentario> Comentario { get; set; }
         public List<Reaccion> Reaccion { get; set; }
-        public List<Tag> Tag { get; set; }
+        public List<Tag> Tags { get; set; }
 
         public List<Usuario> usuarioNoAmigos { get; set; }
 
@@ -30,7 +30,7 @@ namespace TP1_PlataformaDesarrollo
             Post = new List<Post>();
             Comentario = new List<Comentario>();
             Reaccion = new List<Reaccion>();
-            Tag = new List<Tag>();
+            Tags = new List<Tag>();
 
 
 
@@ -42,6 +42,7 @@ namespace TP1_PlataformaDesarrollo
         {
             Usuarios = DB.inicializarUsuarios();
             Post = DB.inicializarPost();
+            Tags = DB.inicializarTags();
         }
 
         public bool agregarUsuario(string Nombre, string Apellido, string Dni, string Email, string Password, bool EsADM, int IntentosFallidos, bool Bloqueado)

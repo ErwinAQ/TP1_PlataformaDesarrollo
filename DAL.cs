@@ -591,6 +591,53 @@ namespace TP1_PlataformaDesarrollo
 
         }
 
+        public List<Tag> inicializarTags()
+        {
+
+            List<Tag> misTags = new List<Tag>();
+            /*select t.id, t.palabra, p.id
+            from posts as p
+            join posts_tags as r on r.post_id = p.id
+            join tags as t on t.id = r.tag_id*/
+
+
+            //Defino el string con la consulta que quiero realizar
+            string queryString = "SELECT * FROM [dbo].[tags];";
+
+            // Creo una conexión SQL con un Using, de modo que al finalizar, la conexión se cierra y se liberan recursos
+            using (SqlConnection connection =
+                new SqlConnection(connectionString))
+            {
+                // Defino el comando a enviar al motor SQL con la consulta y la conexión
+                SqlCommand command = new SqlCommand(queryString, connection);
+                try
+                {
+                    //Abro la conexión
+                    connection.Open();
+                    //mi objecto DataReader va a obtener los resultados de la consulta, notar que a comando se le pide ExecuteReader()
+                    SqlDataReader reader = command.ExecuteReader();
+                    //mientras haya registros/filas en mi DataReader, sigo leyendo
+                    while (reader.Read())
+                    {
+
+                        Tag tag = new Tag();
+                        tag.Id = Convert.ToInt32(reader[0]);
+                        tag.Palabra = Convert.ToString(reader[1]);
+                        misTags.Add(tag);
+
+                    }
+                    //En este punto ya recorrí todas las filas del resultado de la query
+                    reader.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return misTags;
+        }
+
 
         /*public int eliminarPost(int Post_id) //varchar o int a la hora de crear el post
         {
