@@ -455,7 +455,7 @@ namespace TP1_PlataformaDesarrollo
                         //Console.Out.WriteLine("cantidad: " + misPost.Count());
                         Post post = new Post();
                         post.Id = Convert.ToInt32(reader[0]);
-                        post.Usuario.Id = Convert.ToInt32(reader[1]);
+                        post.Usuario = this.getUserFromDatabase(Convert.ToInt32(reader[1]));
                         post.Contenido = Convert.ToString(reader[2]);
                         post.Fecha = Convert.ToDateTime(reader[3]);
                         
@@ -615,8 +615,8 @@ namespace TP1_PlataformaDesarrollo
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
-                command.Parameters.Add(new SqlParameter("@userId", SqlDbType.BigInt));
-                command.Parameters["@userId"].Value = idPost;
+                command.Parameters.Add(new SqlParameter("@idPost", SqlDbType.BigInt));
+                command.Parameters["@idPost"].Value = idPost;
                 try
                 {
                     connection.Open();

@@ -67,7 +67,7 @@ namespace TP1_PlataformaDesarrollo
             {
                 int n = this.dataGridView2.Rows.Add();
                 this.dataGridView2.Rows[n].Cells[0].Value = post[x].Id;
-                this.dataGridView2.Rows[n].Cells[1].Value = post[x].Usuario.Id;
+                this.dataGridView2.Rows[n].Cells[1].Value = post[x].Usuario.Nombre + " " + post[x].Usuario.Apellido;
                 this.dataGridView2.Rows[n].Cells[2].Value = post[x].Contenido;
                 this.dataGridView2.Rows[n].Cells[3].Value = post[x].Fecha;
                 this.dataGridView2.Rows[n].Cells[4].Value = "Ver";
