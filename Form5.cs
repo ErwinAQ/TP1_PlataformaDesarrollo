@@ -21,6 +21,7 @@ namespace TP1_PlataformaDesarrollo
             this.redSocial = redSocial;
             InitializeComponent();
             this.welcomeUserLabel.Text = "Bienvenido " + this.redSocial.logedUser.Nombre + "!";
+            this.initializeMisPosts();
             this.initializeDataGrids();
 
         }
@@ -62,6 +63,17 @@ namespace TP1_PlataformaDesarrollo
                 this.dataGridPostsAmigos.Rows[n].Cells[0].Value = posts[x].Usuario.Nombre + " " + posts[x].Usuario.Apellido;
                 this.dataGridPostsAmigos.Rows[n].Cells[1].Value = posts[x].Contenido;
                 this.dataGridPostsAmigos.Rows[n].Cells[2].Value = posts[x].Fecha;
+            }
+        }
+
+        private void initializeMisPosts()
+        {
+            List<Post> posts = this.redSocial.logedUser.MisPost;
+            for (int x = 0; x < posts.Count; x++)
+            {
+                int n = this.dataGridMisPosts.Rows.Add();
+                this.dataGridMisPosts.Rows[n].Cells[0].Value = posts[x].Contenido;
+                this.dataGridMisPosts.Rows[n].Cells[1].Value = posts[x].Fecha.ToLocalTime();
             }
         }
 
@@ -122,9 +134,8 @@ namespace TP1_PlataformaDesarrollo
             {
                 MessageBox.Show("Se creó el post correctamente");
                 this.richTextBox1.Text = null;
-                //this.dataGridAmigosActuales.Rows.Clear();
-                //this.dataGridNoAmigos.Rows.Clear();
-                //this.initializeDataGrids();
+                this.dataGridMisPosts.Rows.Clear();
+                this.initializeMisPosts();
             }
             else
             {

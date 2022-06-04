@@ -119,6 +119,7 @@ namespace TP1_PlataformaDesarrollo
                 else
                 {
                     this.logedUser.Amigos = DB.obtenerAmigos(userId);
+                    this.logedUser.MisPost = DB.obtenerMisPosts(userId);
                     this.usuarioNoAmigos = DB.inicializarUsuariosNoAmigos(userId);
                     this.Post = DB.obtenerPostAmigos(userId);
                 }
@@ -245,7 +246,7 @@ namespace TP1_PlataformaDesarrollo
 
             if (result)
             {
-                this.Post = DB.obtenerPostAmigos(this.logedUser.Id);
+                this.logedUser.MisPost = DB.obtenerMisPosts(this.logedUser.Id);
             }
             return result;
             //logedUser.MisPost.Add(Postt);

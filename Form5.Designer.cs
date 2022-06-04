@@ -48,10 +48,15 @@
             this.userPost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contentPost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.datePost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dataGridMisPosts = new System.Windows.Forms.DataGridView();
+            this.contentColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaPost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAmigosActuales)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNoAmigos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridPostsAmigos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridMisPosts)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -196,7 +201,7 @@
             this.datePost});
             this.dataGridPostsAmigos.Location = new System.Drawing.Point(294, 145);
             this.dataGridPostsAmigos.Name = "dataGridPostsAmigos";
-            this.dataGridPostsAmigos.Size = new System.Drawing.Size(408, 255);
+            this.dataGridPostsAmigos.Size = new System.Drawing.Size(369, 128);
             this.dataGridPostsAmigos.TabIndex = 9;
             // 
             // label4
@@ -223,11 +228,46 @@
             this.datePost.HeaderText = "Fecha";
             this.datePost.Name = "datePost";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(294, 287);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(51, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Mis posts";
+            // 
+            // dataGridMisPosts
+            // 
+            this.dataGridMisPosts.AllowUserToAddRows = false;
+            this.dataGridMisPosts.AllowUserToDeleteRows = false;
+            this.dataGridMisPosts.AllowUserToOrderColumns = true;
+            this.dataGridMisPosts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridMisPosts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.contentColumn,
+            this.fechaPost});
+            this.dataGridMisPosts.Location = new System.Drawing.Point(294, 304);
+            this.dataGridMisPosts.Name = "dataGridMisPosts";
+            this.dataGridMisPosts.Size = new System.Drawing.Size(369, 101);
+            this.dataGridMisPosts.TabIndex = 12;
+            // 
+            // contentColumn
+            // 
+            this.contentColumn.HeaderText = "Contenido";
+            this.contentColumn.Name = "contentColumn";
+            // 
+            // fechaPost
+            // 
+            this.fechaPost.HeaderText = "Fecha";
+            this.fechaPost.Name = "fechaPost";
+            // 
             // Form5
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dataGridMisPosts);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.dataGridPostsAmigos);
             this.Controls.Add(this.label3);
@@ -249,6 +289,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAmigosActuales)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNoAmigos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridPostsAmigos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridMisPosts)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -276,5 +317,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn userPost;
         private System.Windows.Forms.DataGridViewTextBoxColumn contentPost;
         private System.Windows.Forms.DataGridViewTextBoxColumn datePost;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataGridView dataGridMisPosts;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contentColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fechaPost;
     }
 }

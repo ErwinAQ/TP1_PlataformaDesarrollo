@@ -565,6 +565,48 @@ namespace TP1_PlataformaDesarrollo
             return postAmigos;
         }
 
+        public List<Post> obtenerMisPosts(int logedUserId)
+        {
+            List<Post> misPosts = new List<Post>();
+
+            //Defino el string con la consulta que quiero realizar
+            string queryString = "SELECT * FROM [dbo].[posts] WHERE [usuario_id] = @logedUserId order by [created_at] desc;";
+
+            // Creo una conexión SQL con un Using, de modo que al finalizar, la conexión se cierra y se liberan recursos
+            using (SqlConnection connection =
+                new SqlConnection(connectionString))
+            {
+                // Defino el comando a enviar al motor SQL con la consulta y la conexión
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add(new SqlParameter("@logedUserId", SqlDbType.BigInt));
+                command.Parameters["@logedUserId"].Value = logedUserId;
+                try
+                {
+                    //Abro la conexión
+                    connection.Open();
+                    //mi objecto DataReader va a obtener los resultados de la consulta, notar que a comando se le pide ExecuteReader()
+                    SqlDataReader reader = command.ExecuteReader();
+                    //mientras haya registros/filas en mi DataReader, sigo leyendo
+                    while (reader.Read())
+                    {
+                        Post myPost = new Post();
+                        myPost.Id = Convert.ToInt32(reader[0]);
+                        myPost.Usuario = this.getUserFromDatabase(Convert.ToInt32(reader[1]));
+                        myPost.Contenido = Convert.ToString(reader[2]);
+                        myPost.Fecha = Convert.ToDateTime(reader[3]);
+                        //aux = new Usuario(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetInt32(7), reader.GetBoolean(8));
+                        misPosts.Add(myPost);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return misPosts;
+        }
+
         public bool eliminarPost(int idPost)
         {
             bool result = false;
