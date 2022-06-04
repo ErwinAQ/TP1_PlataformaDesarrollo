@@ -44,14 +44,15 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridPostsAmigos = new System.Windows.Forms.DataGridView();
-            this.label4 = new System.Windows.Forms.Label();
             this.userPost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contentPost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.datePost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.dataGridMisPosts = new System.Windows.Forms.DataGridView();
             this.contentColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaPost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.deleteMyPostVColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAmigosActuales)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNoAmigos)).BeginInit();
@@ -80,7 +81,7 @@
             // cerrarSesionToolStripMenuItem1
             // 
             this.cerrarSesionToolStripMenuItem1.Name = "cerrarSesionToolStripMenuItem1";
-            this.cerrarSesionToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.cerrarSesionToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
             this.cerrarSesionToolStripMenuItem1.Text = "Cerrar sesion";
             this.cerrarSesionToolStripMenuItem1.Click += new System.EventHandler(this.cerrarSesionToolStripMenuItem1_Click);
             // 
@@ -204,15 +205,6 @@
             this.dataGridPostsAmigos.Size = new System.Drawing.Size(369, 128);
             this.dataGridPostsAmigos.TabIndex = 9;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(294, 126);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(102, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Posts de mis amigos";
-            // 
             // userPost
             // 
             this.userPost.HeaderText = "Nombre";
@@ -227,6 +219,15 @@
             // 
             this.datePost.HeaderText = "Fecha";
             this.datePost.Name = "datePost";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(294, 126);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(102, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Posts de mis amigos";
             // 
             // label5
             // 
@@ -245,7 +246,8 @@
             this.dataGridMisPosts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridMisPosts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.contentColumn,
-            this.fechaPost});
+            this.fechaPost,
+            this.deleteMyPostVColumn});
             this.dataGridMisPosts.Location = new System.Drawing.Point(294, 304);
             this.dataGridMisPosts.Name = "dataGridMisPosts";
             this.dataGridMisPosts.Size = new System.Drawing.Size(369, 101);
@@ -260,6 +262,11 @@
             // 
             this.fechaPost.HeaderText = "Fecha";
             this.fechaPost.Name = "fechaPost";
+            // 
+            // deleteMyPostVColumn
+            // 
+            this.deleteMyPostVColumn.HeaderText = "action";
+            this.deleteMyPostVColumn.Name = "deleteMyPostVColumn";
             // 
             // Form5
             // 
@@ -321,5 +328,6 @@
         private System.Windows.Forms.DataGridView dataGridMisPosts;
         private System.Windows.Forms.DataGridViewTextBoxColumn contentColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaPost;
+        private System.Windows.Forms.DataGridViewButtonColumn deleteMyPostVColumn;
     }
 }

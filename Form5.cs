@@ -80,7 +80,7 @@ namespace TP1_PlataformaDesarrollo
         private void dataGridNoAmigos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             List<Usuario> noAmigos = this.redSocial.usuarioNoAmigos;
-            if (e.ColumnIndex == 1) // solo si selecciona la columna de agregar
+            if (e.ColumnIndex == 1 && e.RowIndex > 0) // solo si selecciona la columna de agregar
             {
                 if (this.redSocial.AgregarAmigo(noAmigos[e.RowIndex].Id))
                 {
@@ -101,7 +101,8 @@ namespace TP1_PlataformaDesarrollo
         private void dataGridAmigosActuales_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             List<Usuario> amigos = this.redSocial.logedUser.Amigos;
-            if (e.ColumnIndex == 1) // solo si selecciona la columna de agregar
+            Console.Out.WriteLine("rowIndex: " + e.RowIndex);
+            if (e.ColumnIndex == 1 && e.RowIndex > 0) // solo si selecciona la columna de agregar
             {
                 if (this.redSocial.QuitarAmigo(amigos[e.RowIndex].Id))
                 {

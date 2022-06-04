@@ -38,7 +38,6 @@ namespace TP1_PlataformaDesarrollo
         public void initializeDataGridUsuarios()
         {
 
-            //Console.Out.WriteLine("cantidad" + this.redSocial.Usuarios[4].Id);
             List<Usuario> usuarios = this.redSocial.Usuarios;
             for (int x = 0; x < this.redSocial.Usuarios.Count; x++)
             {
@@ -61,7 +60,6 @@ namespace TP1_PlataformaDesarrollo
         public void initializeDataGridPost()
         {
             
-            //Console.Out.WriteLine("cantidad" + this.redSocial.Post[2].Id);
             List<Post> post = this.redSocial.Post;
             for (int x = 0; x < this.redSocial.Post.Count; x++)
             {
@@ -80,7 +78,6 @@ namespace TP1_PlataformaDesarrollo
         public void initializeDataGridTags()
         {
             List<Tag> tag = this.redSocial.Tags;
-            List<Post> post = this.redSocial.Post;
             for (int x = 0; x < this.redSocial.Tags.Count; x++)
             {
                 int n = this.dataGridView3.Rows.Add();
@@ -93,7 +90,7 @@ namespace TP1_PlataformaDesarrollo
         private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             List<Usuario> usuarios = this.redSocial.Usuarios;
-            if (e.ColumnIndex == 9) // solo si selecciona la columna de eliminar
+            if (e.ColumnIndex == 9 && e.RowIndex > 0) // solo si selecciona la columna de eliminar
             {
                 if (this.redSocial.EliminarUsuario(usuarios[e.RowIndex].Id))
                 {
@@ -115,8 +112,9 @@ namespace TP1_PlataformaDesarrollo
 
         private void dataGridView2_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             List<Post> post = this.redSocial.Post;
-            if (e.ColumnIndex == 6) // solo si selecciona la columna de eliminar
+            if (e.ColumnIndex == 6 && e.RowIndex > 0) // solo si selecciona la columna de eliminar
             {
                 if (this.redSocial.eliminarPost(post[e.RowIndex].Id))
                 {
@@ -139,11 +137,13 @@ namespace TP1_PlataformaDesarrollo
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             this.seleccionarTabla(UPDATE_USUARIO, e.RowIndex);
         }
 
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
             this.seleccionarTabla(UPDATE_POSTS, e.RowIndex);
         }
 
